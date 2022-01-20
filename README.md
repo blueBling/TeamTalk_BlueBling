@@ -152,3 +152,6 @@ int Decrypt(const char* pInData, uint32_t nInLen, char** ppOutData, uint32_t& nO
 ```
 static void MD5_Calculate (const char* pContent, unsigned int nLen,char* md5) //计算MD5(利用openssl/md5)
 ```
+### 五、TeamTalk 线程池(threadpool)详解
+> 使用现有线程库(pthread.h)实现一个工作线程池，工作线程使用std::list实现任务队列，使用条件变量来解决生产者消费者的竞争问题
+> [查看博客](https://blog.csdn.net/aixiaoql/article/details/122601509)
