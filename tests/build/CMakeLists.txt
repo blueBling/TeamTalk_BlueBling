@@ -10,6 +10,9 @@ if(CMAKE_COMPILER_IS_GNUCC)
     add_definitions ( -std=c++11 )
 endif(CMAKE_COMPILER_IS_GNUCC)
  
+#使用Debug编译模式
+#SET(CMAKE_BUILD_TYPE "Debug")
+ 
 # C++ 调试编译时使用的标志
 set(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -ggdb3")
 # C++ 发行编译时使用的标志
@@ -25,6 +28,7 @@ include_directories(${BASE_DIR}/config_m)
 include_directories(${BASE_DIR}/utilPdu)
 include_directories(${BASE_DIR}/encDec)
 include_directories(${BASE_DIR}/threadpool)
+include_directories(${BASE_DIR}/lock)
 
 #imPduBase依赖protobuf
 SET(PB_LIB_DIR ${BASE_DIR}/3rdParty/pb/lib/linux)
@@ -61,3 +65,9 @@ link_directories(${PB_LIB_DIR})
 file(GLOB_RECURSE IMPDUBASE_SRCS ${BASE_DIR}/imPduBase/*.cpp)
 add_executable(test_impdubase ${UTILPDU_SRCS} ${IMPDUBASE_SRCS} ${SRC_PB} ${BASE_DIR}/tests/test_impdubase.cpp)
 target_link_libraries(test_impdubase protobuf-lite)
+
+
+# lock
+file(GLOB_RECURSE LOCK_SRCS ${BASE_DIR}/lock/*.cpp)
+add_executable(test_lock ${THREADPOOL_SRCS} ${LOCK_SRCS} ${BASE_DIR}/tests/test_lock.cpp)
+target_link_libraries(test_lock pthread)
