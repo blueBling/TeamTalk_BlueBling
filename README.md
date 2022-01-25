@@ -85,9 +85,18 @@ make
 - 字节是通过网络传输信息（或在硬盘或内存中存储信息）的单位，该模块实现了了字节流数据处理的一些工具类。  
 -  [查看博客](https://blog.csdn.net/aixiaoql/article/details/122666385)
 
-### 4、TeamTalk EncDec详解
+### 4、TeamTalk IMPduBase详解
+- 用于TeamTalk通讯数据包的读取解析 依赖于UtilPdu工具类，依赖于protobuf第三方库
+- [查看博客](https://blog.csdn.net/aixiaoql/article/details/122669517)
 
+### 5、TeamTalk EncDec详解
+- 主要用于AES加解密和MD5计算
+- [查看博客](https://blog.csdn.net/aixiaoql/article/details/122670155)
 
-### 5、TeamTalk 线程池(threadpool)详解
+### 6、TeamTalk 线程池(threadpool)详解
 - 使用现有线程库(pthread.h)实现一个工作线程池，工作线程使用std::list实现任务队列，使用条件变量来解决生产者消费者的竞争问题  
 - [查看博客](https://blog.csdn.net/aixiaoql/article/details/122601509)
+
+### 7、TeamTalk Lock详解
+- 使用pthread.h封装了普通锁、读写锁、普通局部锁和读写局部锁
+- [查看博客](https://blog.csdn.net/aixiaoql/article/details/122679771)
