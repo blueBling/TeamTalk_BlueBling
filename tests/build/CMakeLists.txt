@@ -29,6 +29,7 @@ include_directories(${BASE_DIR}/utilPdu)
 include_directories(${BASE_DIR}/encDec)
 include_directories(${BASE_DIR}/threadpool)
 include_directories(${BASE_DIR}/lock)
+include_directories(${BASE_DIR}/netlib)
 
 #imPduBase依赖protobuf
 SET(PB_LIB_DIR ${BASE_DIR}/3rdParty/pb/lib/linux)
@@ -71,3 +72,9 @@ target_link_libraries(test_impdubase protobuf-lite)
 file(GLOB_RECURSE LOCK_SRCS ${BASE_DIR}/lock/*.cpp)
 add_executable(test_lock ${THREADPOOL_SRCS} ${LOCK_SRCS} ${BASE_DIR}/tests/test_lock.cpp)
 target_link_libraries(test_lock pthread)
+
+
+# netlib
+file(GLOB_RECURSE NETLIB_SRCS ${BASE_DIR}/netlib/*.cpp)
+add_executable(test_netlib ${LOCK_SRCS} ${NETLIB_SRCS} ${BASE_DIR}/tests/test_netlib.cpp)
+target_link_libraries(test_netlib pthread)
