@@ -30,6 +30,7 @@ include_directories(${BASE_DIR}/encDec)
 include_directories(${BASE_DIR}/threadpool)
 include_directories(${BASE_DIR}/lock)
 include_directories(${BASE_DIR}/netlib)
+include_directories(${BASE_DIR}/httpParser)
 
 #imPduBase依赖protobuf
 SET(PB_LIB_DIR ${BASE_DIR}/3rdParty/pb/lib/linux)
@@ -78,3 +79,7 @@ target_link_libraries(test_lock pthread)
 file(GLOB_RECURSE NETLIB_SRCS ${BASE_DIR}/netlib/*.cpp)
 add_executable(test_netlib ${LOCK_SRCS} ${NETLIB_SRCS} ${BASE_DIR}/tests/test_netlib.cpp)
 target_link_libraries(test_netlib pthread)
+
+# httpParser
+file(GLOB_RECURSE HTTPPARSER_SRCS ${BASE_DIR}/httpParser/*.cpp)
+add_executable(test_httpparser ${HTTPPARSER_SRCS} ${BASE_DIR}/tests/test_httpparser.cpp)
