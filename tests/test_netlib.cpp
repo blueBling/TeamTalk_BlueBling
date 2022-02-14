@@ -7,6 +7,7 @@
 //
 
 #include "netlib.h"
+#include "util.h"
 
 #include<iostream>
 #include<string>
@@ -76,6 +77,16 @@ void proxy_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void
 	}
 }
 
+void http_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
+{
+	uint64_t curr_tick = get_tick_count();
+	
+	if (curr_tick % 10 == 0) {
+		cout << "send HEARTBEAT msg" << endl;
+	}
+}
+
+
 //模拟login server,teamtalk客户端登录时会先连接login server获取msg_server的情况再连接msg_server,由于没有模拟msg_server,
 //teamtalk客户端第一阶段获取msg_server的情况会成功，第二阶段连接msg_server会出错，但测试效果(能正常连接收发数据)达到了；
 //teamtalk客户端代码void DoLoginServerHttpOperation::processOpertion()用于第一阶段连接login server获取msg server信息；void LoginOperation::processOpertion()用于第二阶段连接msg server这才是真正的连接。
@@ -85,6 +96,8 @@ int test_netlib(){
 	int ret = netlib_listen(ip, listen_port, proxy_serv_callback, NULL);
 	if (ret == NETLIB_ERROR)
 		return ret;
+
+	netlib_register_timer(http_conn_timer_callback, NULL, 1000); //注册周期为1s的定时任务,模拟心跳
 
 	netlib_eventloop(10);
 
