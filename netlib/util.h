@@ -29,7 +29,7 @@
 
 using std::string;
 
-//#define NOTUSED_ARG(v) ((void)v)		// used this to remove warning C4100, unreferenced parameter
+#define NOTUSED_ARG(v) ((void)v)		// used this to remove warning C4100, unreferenced parameter
 
 /// yunfan modify end 
 class CRefObject
