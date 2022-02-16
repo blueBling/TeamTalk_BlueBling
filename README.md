@@ -7,12 +7,17 @@
 >Ubuntu 16.04
 
 ## 源码结构说明
- - **slog**：日志模块，用于日志输出(控制台 文件等)  
+ -  **slog**：日志模块，用于日志输出(控制台 文件等)  
  -  **config_m**：配置模块，用于读取conf配置  
- - **utilPdu**：pdu工具模块，实现一些数据结构(自己数组等)来处理字节型的数据  
+ -  **utilPdu**：pdu工具模块，实现一些数据结构(自己数组等)来处理字节型的数据  
  -  **encDec**: 加密解密模块，用于AES加密解密，计算MD5等  
  -  **imPduBase**：IM基本pdu模块，用于IM消息数据(PDU)处理  
  -  **threadpool**: 线程池模块，提供高效的任务处理方案  
+ -  **lock**: 锁模块，使用pthread.h封装了普通锁、读写锁、普通局部锁和读写局部锁  
+ -  **netlib**: 网络库，主要用于处理tcp连接  
+ -  **httpParser**: HTTP解析库，利用了ngnix的http_parse解析库  
+ -  **imConn**: tcp连接基础类库，利用netlib封装了一套比较通用的tcp连接基础类，业务类的连接可继承该类重写自己的业务逻辑
+ -  **httpClient**: HTTP客户端基础类库，利用curl库和jsoncpp实现了http客户端Get/Post和语音数据的上传下载
  -  **3rdParty**：第三方库，提供log4cxx、protobuf等库  
  -  **tests**: 测试模块，为各个模块编写的测试用例
 
@@ -100,3 +105,19 @@ make
 ### 7、TeamTalk Lock详解
 - 使用pthread.h封装了普通锁、读写锁、普通局部锁和读写局部锁
 - [查看博客](https://blog.csdn.net/aixiaoql/article/details/122679771)
+
+### 8、NetLib详解
+- 主要用于处理tcp连接，自己实现了一个网络库
+- [查看博客](https://blog.csdn.net/aixiaoql/article/details/122687021)
+
+### 9、HttpParser详解
+- TeamTalk http解析实际上是利用了ngnix的http_parse解析库
+- [查看博客](https://blog.csdn.net/aixiaoql/article/details/122862322)
+
+### 10、IMConn详解
+- 利用netlib封装了一套比较通用的tcp连接基础类，业务类的连接像CLoginConn用于登录服务器连接和CHttpConn用于http连接等可继承该类重写自己的业务逻辑
+- [查看博客](https://blog.csdn.net/aixiaoql/article/details/122936891)
+
+### 11、HttpClient详解
+- HttpClient利用curl库和jsoncpp实现了http客户端Get/Post和语音数据的上传下载；http body主要为json格式，jsoncpp主要服务于该json数据的组装和解析
+- [查看博客](https://blog.csdn.net/aixiaoql/article/details/122948237)
