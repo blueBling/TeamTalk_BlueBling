@@ -3,7 +3,7 @@
 
 #define _CRT_SECURE_NO_DEPRECATE	// remove warning C4996, 
 
-#include "ostype.h"
+//#include "ostype.h"
 //#include "UtilPdu.h"
 #include "Lock.h"
 #include <stdio.h>
@@ -25,6 +25,12 @@
 #include <pthread.h>
 #include <time.h>
 #include <sys/time.h>
+//+++ start +++ add by blueBling
+#include <string>
+#include <stdint.h> //uint32_t
+#include <sys/types.h>
+#include <unistd.h> //usleep
+//+++ end +++ add by blueBling
 #endif
 
 using std::string;

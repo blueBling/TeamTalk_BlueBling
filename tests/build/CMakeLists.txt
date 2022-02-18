@@ -27,14 +27,23 @@ include_directories(${BASE_DIR} ${BASE_DIR}/slog)
 include_directories(${BASE_DIR}/config_m)
 include_directories(${BASE_DIR}/utilPdu)
 include_directories(${BASE_DIR}/encDec)
+include_directories(${BASE_DIR}/util)
 include_directories(${BASE_DIR}/threadpool)
+include_directories(${BASE_DIR}/imPduBase)
 include_directories(${BASE_DIR}/lock)
 include_directories(${BASE_DIR}/netlib)
 include_directories(${BASE_DIR}/httpParser)
+include_directories(${BASE_DIR}/imConn)
+include_directories(${BASE_DIR}/httpClient)
 
-#imPduBase依赖protobuf
+#imPduBase 依赖protobuf
 SET(PB_LIB_DIR ${BASE_DIR}/3rdParty/pb/lib/linux)
-include_directories(${BASE_DIR}/3rdParty ${BASE_DIR}/3rdParty/pb ${BASE_DIR}/3rdParty/pb/protocol ${BASE_DIR}/imPduBase)
+include_directories(${BASE_DIR}/3rdParty ${BASE_DIR}/3rdParty/pb ${BASE_DIR}/3rdParty/pb/protocol)
+
+#httpClient 依赖jsoncpp
+SET(JSON_LIB_DIR ${BASE_DIR}/3rdParty/jsoncpp)
+include_directories(${BASE_DIR}/3rdParty/jsoncpp)
+
 
 # 指定链接库路径和链接库等并生成可执行文件
 # slog 这里直接使用了自己生成的libslog.so而libslog.so依赖了第三方开源库log4cxx
@@ -55,6 +64,7 @@ file(GLOB_RECURSE ENCDEC_SRCS ${BASE_DIR}/encDec/*.cpp)
 add_executable(test_encdec ${UTILPDU_SRCS} ${ENCDEC_SRCS} ${BASE_DIR}/tests/test_encdec.cpp)
 target_link_libraries(test_encdec crypto)
 
+
 # threadpool 依赖系统库pthread
 file(GLOB_RECURSE THREADPOOL_SRCS ${BASE_DIR}/threadpool/*.cpp)
 add_executable(test_threadpool ${THREADPOOL_SRCS} ${BASE_DIR}/tests/test_threadpool.cpp)
@@ -69,17 +79,33 @@ add_executable(test_impdubase ${UTILPDU_SRCS} ${IMPDUBASE_SRCS} ${SRC_PB} ${BASE
 target_link_libraries(test_impdubase protobuf-lite)
 
 
-# lock
+# lock 是pthread.h实现的依赖系统库pthread test_lock依赖了threadpool
 file(GLOB_RECURSE LOCK_SRCS ${BASE_DIR}/lock/*.cpp)
 add_executable(test_lock ${THREADPOOL_SRCS} ${LOCK_SRCS} ${BASE_DIR}/tests/test_lock.cpp)
 target_link_libraries(test_lock pthread)
 
+# util 依赖了lock
+file(GLOB_RECURSE UTIL_SRCS ${BASE_DIR}/util/*.cpp)
+add_executable(test_util ${LOCK_SRCS} ${UTIL_SRCS} ${BASE_DIR}/tests/test_util.cpp)
+target_link_libraries(test_util pthread)
 
-# netlib
+
+# netlib 依赖了util lock
 file(GLOB_RECURSE NETLIB_SRCS ${BASE_DIR}/netlib/*.cpp)
-add_executable(test_netlib ${LOCK_SRCS} ${NETLIB_SRCS} ${BASE_DIR}/tests/test_netlib.cpp)
+add_executable(test_netlib ${UTIL_SRCS} ${LOCK_SRCS} ${NETLIB_SRCS} ${BASE_DIR}/tests/test_netlib.cpp)
 target_link_libraries(test_netlib pthread)
 
 # httpParser
 file(GLOB_RECURSE HTTPPARSER_SRCS ${BASE_DIR}/httpParser/*.cpp)
 add_executable(test_httpparser ${HTTPPARSER_SRCS} ${BASE_DIR}/tests/test_httpparser.cpp)
+
+# imConn 依赖了impdubase netlib
+file(GLOB_RECURSE IMCONN_SRCS ${BASE_DIR}/imConn/*.cpp)
+add_executable(test_imconn ${UTIL_SRCS} ${UTILPDU_SRCS} ${IMPDUBASE_SRCS} ${SRC_PB} ${LOCK_SRCS} ${NETLIB_SRCS} ${IMCONN_SRCS} ${BASE_DIR}/tests/test_imconn.cpp)
+target_link_libraries(test_imconn protobuf-lite pthread)
+
+# httpClient 依赖第三方库curl jsoncpp
+aux_source_directory(${JSON_LIB_DIR} SRC_JSON)
+file(GLOB_RECURSE HTTPCLIENT_SRCS ${BASE_DIR}/httpClient/*.cpp)
+add_executable(test_httpclient ${SRC_JSON} ${HTTPCLIENT_SRCS} ${BASE_DIR}/tests/test_httpclient.cpp)
+target_link_libraries(test_httpclient curl)
