@@ -35,6 +35,7 @@ include_directories(${BASE_DIR}/netlib)
 include_directories(${BASE_DIR}/httpParser)
 include_directories(${BASE_DIR}/imConn)
 include_directories(${BASE_DIR}/httpClient)
+include_directories(${BASE_DIR}/cachePool)
 
 #imPduBase 依赖protobuf
 SET(PB_LIB_DIR ${BASE_DIR}/3rdParty/pb/lib/linux)
@@ -109,3 +110,8 @@ aux_source_directory(${JSON_LIB_DIR} SRC_JSON)
 file(GLOB_RECURSE HTTPCLIENT_SRCS ${BASE_DIR}/httpClient/*.cpp)
 add_executable(test_httpclient ${SRC_JSON} ${HTTPCLIENT_SRCS} ${BASE_DIR}/tests/test_httpclient.cpp)
 target_link_libraries(test_httpclient curl)
+
+# cachePool 依赖了config util threadPool 使用了redis接口，依赖hiredis
+file(GLOB_RECURSE CACHEPOOL_SRCS ${BASE_DIR}/cachePool/*.cpp)
+add_executable(test_cachepool  ${CONFIG_SRCS} ${LOCK_SRCS} ${UTIL_SRCS} ${THREADPOOL_SRCS} ${CACHEPOOL_SRCS} ${BASE_DIR}/tests/test_cachepool.cpp)
+target_link_libraries(test_cachepool pthread hiredis)
