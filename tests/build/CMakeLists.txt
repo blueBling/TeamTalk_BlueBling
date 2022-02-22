@@ -36,6 +36,7 @@ include_directories(${BASE_DIR}/httpParser)
 include_directories(${BASE_DIR}/imConn)
 include_directories(${BASE_DIR}/httpClient)
 include_directories(${BASE_DIR}/cachePool)
+include_directories(${BASE_DIR}/dbPool)
 
 #imPduBase 依赖protobuf
 SET(PB_LIB_DIR ${BASE_DIR}/3rdParty/pb/lib/linux)
@@ -44,6 +45,11 @@ include_directories(${BASE_DIR}/3rdParty ${BASE_DIR}/3rdParty/pb ${BASE_DIR}/3rd
 #httpClient 依赖jsoncpp
 SET(JSON_LIB_DIR ${BASE_DIR}/3rdParty/jsoncpp)
 include_directories(${BASE_DIR}/3rdParty/jsoncpp)
+
+# dbPool 依赖mysql
+SET(MYSQL_INCLUDE_DIR /usr/include/mysql)
+include_directories(${MYSQL_INCLUDE_DIR})
+SET(MYSQL_LIB /usr/lib64/mysql)
 
 
 # 指定链接库路径和链接库等并生成可执行文件
@@ -115,3 +121,9 @@ target_link_libraries(test_httpclient curl)
 file(GLOB_RECURSE CACHEPOOL_SRCS ${BASE_DIR}/cachePool/*.cpp)
 add_executable(test_cachepool  ${CONFIG_SRCS} ${LOCK_SRCS} ${UTIL_SRCS} ${THREADPOOL_SRCS} ${CACHEPOOL_SRCS} ${BASE_DIR}/tests/test_cachepool.cpp)
 target_link_libraries(test_cachepool pthread hiredis)
+
+# dbPool 依赖了config lock util threadPool 使用了mysql接口，依赖mysqlclient
+file(GLOB_RECURSE DBPOOL_SRCS ${BASE_DIR}/dbPool/*.cpp)
+link_directories(${MYSQL_LIB})
+add_executable(test_dbpool  ${CONFIG_SRCS} ${LOCK_SRCS} ${UTIL_SRCS} ${THREADPOOL_SRCS} ${DBPOOL_SRCS} ${BASE_DIR}/tests/test_dbpool.cpp)
+target_link_libraries(test_dbpool pthread mysqlclient)
