@@ -37,6 +37,8 @@ include_directories(${BASE_DIR}/imConn)
 include_directories(${BASE_DIR}/httpClient)
 include_directories(${BASE_DIR}/cachePool)
 include_directories(${BASE_DIR}/dbPool)
+include_directories(${BASE_DIR}/audioModel)
+
 
 #imPduBase 依赖protobuf
 SET(PB_LIB_DIR ${BASE_DIR}/3rdParty/pb/lib/linux)
@@ -127,3 +129,8 @@ file(GLOB_RECURSE DBPOOL_SRCS ${BASE_DIR}/dbPool/*.cpp)
 link_directories(${MYSQL_LIB})
 add_executable(test_dbpool  ${CONFIG_SRCS} ${LOCK_SRCS} ${UTIL_SRCS} ${THREADPOOL_SRCS} ${DBPOOL_SRCS} ${BASE_DIR}/tests/test_dbpool.cpp)
 target_link_libraries(test_dbpool pthread mysqlclient)
+
+# audioModel 依赖了 utilpdu dbPool httpClient 依赖第三方开源库 protobuf
+file(GLOB_RECURSE AUDIOMODEL_SRCS ${BASE_DIR}/audioModel/*.cpp)
+add_executable(test_audiomodel ${UTILPDU_SRCS} ${CONFIG_SRCS} ${LOCK_SRCS} ${UTIL_SRCS} ${THREADPOOL_SRCS} ${DBPOOL_SRCS} ${SRC_JSON} ${HTTPCLIENT_SRCS} ${SRC_PB} ${AUDIOMODEL_SRCS} ${BASE_DIR}/tests/test_audiomodel.cpp)
+target_link_libraries(test_audiomodel pthread mysqlclient curl protobuf-lite)
