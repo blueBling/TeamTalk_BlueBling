@@ -11,7 +11,7 @@ if(CMAKE_COMPILER_IS_GNUCC)
 endif(CMAKE_COMPILER_IS_GNUCC)
  
 #使用Debug编译模式
-#SET(CMAKE_BUILD_TYPE "Debug")
+SET(CMAKE_BUILD_TYPE "Debug")
  
 # C++ 调试编译时使用的标志
 set(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -ggdb3")
@@ -23,114 +23,114 @@ set(BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../..)
 message("BASE_DIR:${BASE_DIR}")
  
 # 指定头文件目录
-include_directories(${BASE_DIR} ${BASE_DIR}/slog)
-include_directories(${BASE_DIR}/config_m)
-include_directories(${BASE_DIR}/utilPdu)
-include_directories(${BASE_DIR}/encDec)
-include_directories(${BASE_DIR}/util)
-include_directories(${BASE_DIR}/threadpool)
-include_directories(${BASE_DIR}/imPduBase)
-include_directories(${BASE_DIR}/lock)
-include_directories(${BASE_DIR}/netlib)
-include_directories(${BASE_DIR}/httpParser)
-include_directories(${BASE_DIR}/imConn)
-include_directories(${BASE_DIR}/httpClient)
-include_directories(${BASE_DIR}/cachePool)
-include_directories(${BASE_DIR}/dbPool)
-include_directories(${BASE_DIR}/audioModel)
+include_directories(${BASE_DIR} ${BASE_DIR}/SLog)
+include_directories(${BASE_DIR}/Config)
+include_directories(${BASE_DIR}/UtilPdu)
+include_directories(${BASE_DIR}/EncDec)
+include_directories(${BASE_DIR}/Util)
+include_directories(${BASE_DIR}/ThreadPool)
+include_directories(${BASE_DIR}/ImPduBase)
+include_directories(${BASE_DIR}/Lock)
+include_directories(${BASE_DIR}/NetLib)
+include_directories(${BASE_DIR}/HttpParser)
+include_directories(${BASE_DIR}/ImConn)
+include_directories(${BASE_DIR}/HttpClient)
+include_directories(${BASE_DIR}/CachePool)
+include_directories(${BASE_DIR}/DbPool)
+include_directories(${BASE_DIR}/AudioModel)
 
 
-#imPduBase 依赖protobuf
+#ImPduBase 依赖protobuf
 SET(PB_LIB_DIR ${BASE_DIR}/3rdParty/pb/lib/linux)
 include_directories(${BASE_DIR}/3rdParty ${BASE_DIR}/3rdParty/pb ${BASE_DIR}/3rdParty/pb/protocol)
 
-#httpClient 依赖jsoncpp
+#HttpClient 依赖jsoncpp
 SET(JSON_LIB_DIR ${BASE_DIR}/3rdParty/jsoncpp)
 include_directories(${BASE_DIR}/3rdParty/jsoncpp)
 
-# dbPool 依赖mysql
+# DbPool 依赖mysql
 SET(MYSQL_INCLUDE_DIR /usr/include/mysql)
 include_directories(${MYSQL_INCLUDE_DIR})
 SET(MYSQL_LIB /usr/lib64/mysql)
 
 
 # 指定链接库路径和链接库等并生成可执行文件
-# slog 这里直接使用了自己生成的libslog.so而libslog.so依赖了第三方开源库log4cxx
-link_directories(${BASE_DIR}/slog)
+# SLog 这里直接使用了自己生成的libslog.so而libslog.so依赖了第三方开源库log4cxx
+link_directories(${BASE_DIR}/SLog)
 link_libraries(slog)
-add_executable(test_slog ${BASE_DIR}/tests/test_slog.cpp)
+add_executable(test_slog ${BASE_DIR}/Tests/test_slog.cpp)
 
 # config
-file(GLOB_RECURSE CONFIG_SRCS ${BASE_DIR}/config_m/*.cpp)
-add_executable(test_config ${CONFIG_SRCS} ${BASE_DIR}/tests/test_config.cpp)
+file(GLOB_RECURSE CONFIG_SRCS ${BASE_DIR}/Config/*.cpp)
+add_executable(test_config ${CONFIG_SRCS} ${BASE_DIR}/Tests/test_config.cpp)
 
 # utilpdu
-file(GLOB_RECURSE UTILPDU_SRCS ${BASE_DIR}/utilPdu/*.cpp)
-add_executable(test_utilpdu ${UTILPDU_SRCS} ${BASE_DIR}/tests/test_utilpdu.cpp)
+file(GLOB_RECURSE UTILPDU_SRCS ${BASE_DIR}/UtilPdu/*.cpp)
+add_executable(test_utilpdu ${UTILPDU_SRCS} ${BASE_DIR}/Tests/test_utilpdu.cpp)
 
 # encdec 依赖了utilpdu 依赖系统库openssl/aes openssl/md5
-file(GLOB_RECURSE ENCDEC_SRCS ${BASE_DIR}/encDec/*.cpp)
-add_executable(test_encdec ${UTILPDU_SRCS} ${ENCDEC_SRCS} ${BASE_DIR}/tests/test_encdec.cpp)
+file(GLOB_RECURSE ENCDEC_SRCS ${BASE_DIR}/EncDec/*.cpp)
+add_executable(test_encdec ${UTILPDU_SRCS} ${ENCDEC_SRCS} ${BASE_DIR}/Tests/test_encdec.cpp)
 target_link_libraries(test_encdec crypto)
 
 
-# threadpool 依赖系统库pthread
-file(GLOB_RECURSE THREADPOOL_SRCS ${BASE_DIR}/threadpool/*.cpp)
-add_executable(test_threadpool ${THREADPOOL_SRCS} ${BASE_DIR}/tests/test_threadpool.cpp)
+# ThreadPool 依赖系统库pthread
+file(GLOB_RECURSE THREADPOOL_SRCS ${BASE_DIR}/ThreadPool/*.cpp)
+add_executable(test_threadpool ${THREADPOOL_SRCS} ${BASE_DIR}/Tests/test_threadpool.cpp)
 target_link_libraries(test_threadpool pthread)
 
 
 # impdubase 依赖了utilpdu 依赖第三方开源库protobuf
 aux_source_directory(${BASE_DIR}/3rdParty/pb/protocol SRC_PB)
 link_directories(${PB_LIB_DIR})
-file(GLOB_RECURSE IMPDUBASE_SRCS ${BASE_DIR}/imPduBase/*.cpp)
-add_executable(test_impdubase ${UTILPDU_SRCS} ${IMPDUBASE_SRCS} ${SRC_PB} ${BASE_DIR}/tests/test_impdubase.cpp)
+file(GLOB_RECURSE IMPDUBASE_SRCS ${BASE_DIR}/ImPduBase/*.cpp)
+add_executable(test_impdubase ${UTILPDU_SRCS} ${IMPDUBASE_SRCS} ${SRC_PB} ${BASE_DIR}/Tests/test_impdubase.cpp)
 target_link_libraries(test_impdubase protobuf-lite)
 
 
-# lock 是pthread.h实现的依赖系统库pthread test_lock依赖了threadpool
-file(GLOB_RECURSE LOCK_SRCS ${BASE_DIR}/lock/*.cpp)
-add_executable(test_lock ${THREADPOOL_SRCS} ${LOCK_SRCS} ${BASE_DIR}/tests/test_lock.cpp)
+# Lock 是pthread.h实现的依赖系统库pthread test_lock依赖了threadpool
+file(GLOB_RECURSE LOCK_SRCS ${BASE_DIR}/Lock/*.cpp)
+add_executable(test_lock ${THREADPOOL_SRCS} ${LOCK_SRCS} ${BASE_DIR}/Tests/test_lock.cpp)
 target_link_libraries(test_lock pthread)
 
-# util 依赖了lock
-file(GLOB_RECURSE UTIL_SRCS ${BASE_DIR}/util/*.cpp)
-add_executable(test_util ${LOCK_SRCS} ${UTIL_SRCS} ${BASE_DIR}/tests/test_util.cpp)
+# Util 依赖了Lock
+file(GLOB_RECURSE UTIL_SRCS ${BASE_DIR}/Util/*.cpp)
+add_executable(test_util ${LOCK_SRCS} ${UTIL_SRCS} ${BASE_DIR}/Tests/test_util.cpp)
 target_link_libraries(test_util pthread)
 
 
-# netlib 依赖了util lock
-file(GLOB_RECURSE NETLIB_SRCS ${BASE_DIR}/netlib/*.cpp)
-add_executable(test_netlib ${UTIL_SRCS} ${LOCK_SRCS} ${NETLIB_SRCS} ${BASE_DIR}/tests/test_netlib.cpp)
+# NetLib 依赖了Util Lock
+file(GLOB_RECURSE NETLIB_SRCS ${BASE_DIR}/NetLib/*.cpp)
+add_executable(test_netlib ${UTIL_SRCS} ${LOCK_SRCS} ${NETLIB_SRCS} ${BASE_DIR}/Tests/test_netlib.cpp)
 target_link_libraries(test_netlib pthread)
 
-# httpParser
-file(GLOB_RECURSE HTTPPARSER_SRCS ${BASE_DIR}/httpParser/*.cpp)
-add_executable(test_httpparser ${HTTPPARSER_SRCS} ${BASE_DIR}/tests/test_httpparser.cpp)
+# HttpParser
+file(GLOB_RECURSE HTTPPARSER_SRCS ${BASE_DIR}/HttpParser/*.cpp)
+add_executable(test_httpparser ${HTTPPARSER_SRCS} ${BASE_DIR}/Tests/test_httpparser.cpp)
 
-# imConn 依赖了impdubase netlib
-file(GLOB_RECURSE IMCONN_SRCS ${BASE_DIR}/imConn/*.cpp)
-add_executable(test_imconn ${UTIL_SRCS} ${UTILPDU_SRCS} ${IMPDUBASE_SRCS} ${SRC_PB} ${LOCK_SRCS} ${NETLIB_SRCS} ${IMCONN_SRCS} ${BASE_DIR}/tests/test_imconn.cpp)
+# ImConn 依赖了 impdubase NetLib
+file(GLOB_RECURSE IMCONN_SRCS ${BASE_DIR}/ImConn/*.cpp)
+add_executable(test_imconn ${UTIL_SRCS} ${UTILPDU_SRCS} ${IMPDUBASE_SRCS} ${SRC_PB} ${LOCK_SRCS} ${NETLIB_SRCS} ${IMCONN_SRCS} ${BASE_DIR}/Tests/test_imconn.cpp)
 target_link_libraries(test_imconn protobuf-lite pthread)
 
-# httpClient 依赖第三方库curl jsoncpp
+# HttpClient 依赖第三方库curl jsoncpp
 aux_source_directory(${JSON_LIB_DIR} SRC_JSON)
-file(GLOB_RECURSE HTTPCLIENT_SRCS ${BASE_DIR}/httpClient/*.cpp)
-add_executable(test_httpclient ${SRC_JSON} ${HTTPCLIENT_SRCS} ${BASE_DIR}/tests/test_httpclient.cpp)
+file(GLOB_RECURSE HTTPCLIENT_SRCS ${BASE_DIR}/HttpClient/*.cpp)
+add_executable(test_httpclient ${SRC_JSON} ${HTTPCLIENT_SRCS} ${BASE_DIR}/Tests/test_httpclient.cpp)
 target_link_libraries(test_httpclient curl)
 
-# cachePool 依赖了config util threadPool 使用了redis接口，依赖hiredis
-file(GLOB_RECURSE CACHEPOOL_SRCS ${BASE_DIR}/cachePool/*.cpp)
-add_executable(test_cachepool  ${CONFIG_SRCS} ${LOCK_SRCS} ${UTIL_SRCS} ${THREADPOOL_SRCS} ${CACHEPOOL_SRCS} ${BASE_DIR}/tests/test_cachepool.cpp)
+# CachePool 依赖了config Util threadPool 使用了redis接口，依赖hiredis
+file(GLOB_RECURSE CACHEPOOL_SRCS ${BASE_DIR}/CachePool/*.cpp)
+add_executable(test_cachepool  ${CONFIG_SRCS} ${LOCK_SRCS} ${UTIL_SRCS} ${THREADPOOL_SRCS} ${CACHEPOOL_SRCS} ${BASE_DIR}/Tests/test_cachepool.cpp)
 target_link_libraries(test_cachepool pthread hiredis)
 
-# dbPool 依赖了config lock util threadPool 使用了mysql接口，依赖mysqlclient
-file(GLOB_RECURSE DBPOOL_SRCS ${BASE_DIR}/dbPool/*.cpp)
+# DbPool 依赖了config Lock Util threadPool 使用了mysql接口，依赖mysqlclient
+file(GLOB_RECURSE DBPOOL_SRCS ${BASE_DIR}/DbPool/*.cpp)
 link_directories(${MYSQL_LIB})
-add_executable(test_dbpool  ${CONFIG_SRCS} ${LOCK_SRCS} ${UTIL_SRCS} ${THREADPOOL_SRCS} ${DBPOOL_SRCS} ${BASE_DIR}/tests/test_dbpool.cpp)
+add_executable(test_dbpool  ${CONFIG_SRCS} ${LOCK_SRCS} ${UTIL_SRCS} ${THREADPOOL_SRCS} ${DBPOOL_SRCS} ${BASE_DIR}/Tests/test_dbpool.cpp)
 target_link_libraries(test_dbpool pthread mysqlclient)
 
-# audioModel 依赖了 utilpdu dbPool httpClient 依赖第三方开源库 protobuf
-file(GLOB_RECURSE AUDIOMODEL_SRCS ${BASE_DIR}/audioModel/*.cpp)
-add_executable(test_audiomodel ${UTILPDU_SRCS} ${CONFIG_SRCS} ${LOCK_SRCS} ${UTIL_SRCS} ${THREADPOOL_SRCS} ${DBPOOL_SRCS} ${SRC_JSON} ${HTTPCLIENT_SRCS} ${SRC_PB} ${AUDIOMODEL_SRCS} ${BASE_DIR}/tests/test_audiomodel.cpp)
+# AudioModel 依赖了 utilpdu DbPool HttpClient 依赖第三方开源库 protobuf
+file(GLOB_RECURSE AUDIOMODEL_SRCS ${BASE_DIR}/AudioModel/*.cpp)
+add_executable(test_audiomodel ${UTILPDU_SRCS} ${CONFIG_SRCS} ${LOCK_SRCS} ${UTIL_SRCS} ${THREADPOOL_SRCS} ${DBPOOL_SRCS} ${SRC_JSON} ${HTTPCLIENT_SRCS} ${SRC_PB} ${AUDIOMODEL_SRCS} ${BASE_DIR}/Tests/test_audiomodel.cpp)
 target_link_libraries(test_audiomodel pthread mysqlclient curl protobuf-lite)

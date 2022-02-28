@@ -1,7 +1,7 @@
 #!/bin/sh
 SRC_DIR=./
 DST_DIR=./gen
-PROTOC=/mnt/hgfs/vmshare_code/teamtalk_blueBling/3rdParty/package_protobuf/bin/protoc
+PROTOC=../package_protobuf/bin/protoc
 #C++
 mkdir -p $DST_DIR/cpp
 $PROTOC -I=$SRC_DIR --cpp_out=$DST_DIR/cpp/ $SRC_DIR/*.proto
