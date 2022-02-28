@@ -7,19 +7,19 @@
 >Ubuntu 16.04
 
 ## 源码结构说明
- -  **slog**：日志模块，用于日志输出(控制台 文件等)  
- -  **config_m**：配置模块，用于读取conf配置  
- -  **utilPdu**：pdu工具模块，实现一些数据结构(自己数组等)来处理字节型的数据  
- -  **encDec**: 加密解密模块，用于AES加密解密，计算MD5等  
- -  **imPduBase**：IM基本pdu模块，用于IM消息数据(PDU)处理  
- -  **threadpool**: 线程池模块，提供高效的任务处理方案  
- -  **lock**: 锁模块，使用pthread.h封装了普通锁、读写锁、普通局部锁和读写局部锁  
- -  **netlib**: 网络库，主要用于处理tcp连接  
- -  **httpParser**: HTTP解析库，利用了ngnix的http_parse解析库  
- -  **imConn**: tcp连接基础类库，利用netlib封装了一套比较通用的tcp连接基础类，业务类的连接可继承该类重写自己的业务逻辑
- -  **httpClient**: HTTP客户端基础类库，利用curl库和jsoncpp实现了http客户端Get/Post和语音数据的上传下载
+ -  **base/SLog**：日志模块，用于日志输出(控制台 文件等)  
+ -  **base/Config**：配置模块，用于读取conf配置  
+ -  **base/UtilPdu**：pdu工具模块，实现一些数据结构(自己数组等)来处理字节型的数据  
+ -  **base/EncDec**: 加密解密模块，用于AES加密解密，计算MD5等  
+ -  **base/ImPduBase**：IM基本pdu模块，用于IM消息数据(PDU)处理  
+ -  **base/ThreadPool**: 线程池模块，提供高效的任务处理方案  
+ -  **base/Lock**: 锁模块，使用pthread.h封装了普通锁、读写锁、普通局部锁和读写局部锁  
+ -  **base/NetLib**: 网络库，主要用于处理tcp连接  
+ -  **base/HttpParser**: HTTP解析库，利用了ngnix的http_parse解析库  
+ -  **base/ImConn**: tcp连接基础类库，利用netlib封装了一套比较通用的tcp连接基础类，业务类的连接可继承该类重写自己的业务逻辑
+ -  **base/HttpClient**: HTTP客户端基础类库，利用curl库和jsoncpp实现了http客户端Get/Post和语音数据的上传下载
  -  **3rdParty**：第三方库，提供log4cxx、protobuf等库  
- -  **tests**: 测试模块，为各个模块编写的测试用例
+ -  **Tests**: 测试模块，为各个模块编写的测试用例
 
 ## log4cxx库编译安装指南
 - 3rdParty/package_log4cxx存放了apache-log4cxx-0.10.0.tar.gz源码包 
@@ -78,11 +78,11 @@ make
 
 
 ## 模块说明
-### 1、TeamTalk slog详解
--  slog模块依赖于log4cxx，实际是对log4cxx的进一步封装。    
+### 1、TeamTalk SLog详解
+-  SLog模块依赖于log4cxx，实际是对log4cxx的进一步封装。    
 - [查看博客](https://blog.csdn.net/aixiaoql/article/details/122608722)
 
-### 2、TeamTalk configure详解
+### 2、TeamTalk Config详解
 - 该项目配置解析为ini配置简化版，基本逻辑是读取文本每一行数据判断是否是name=value结构，然后存入map<string name, string value>。  
  - [查看博客](https://blog.csdn.net/aixiaoql/article/details/122665827)
 
@@ -98,7 +98,7 @@ make
 - 主要用于AES加解密和MD5计算
 - [查看博客](https://blog.csdn.net/aixiaoql/article/details/122670155)
 
-### 6、TeamTalk 线程池(threadpool)详解
+### 6、TeamTalk 线程池(ThreadPool)详解
 - 使用现有线程库(pthread.h)实现一个工作线程池，工作线程使用std::list实现任务队列，使用条件变量来解决生产者消费者的竞争问题  
 - [查看博客](https://blog.csdn.net/aixiaoql/article/details/122601509)
 
