@@ -36,7 +36,7 @@ void imconn_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pP
 	if (!pConn)
 		return;
 
-	//log("msg=%d, handle=%d ", msg, handle);
+	log("msg=%d, handle=%d ", msg, handle);
 
 	switch (msg)
 	{

@@ -104,7 +104,7 @@ bool CAudioModel::readAudios(list<IM::BaseDefine::MsgInfo>& lsMsg)
                 }
                 else
                 {
-                    //log("no result for sql:%s", strSql.c_str());
+                    log("no result for sql:%s", strSql.c_str());
                     it = lsMsg.erase(it);
                 }
             }
@@ -118,7 +118,7 @@ bool CAudioModel::readAudios(list<IM::BaseDefine::MsgInfo>& lsMsg)
     }
     else
     {
-        //log("no connection for teamtalk_slave");
+        log("no connection for teamtalk_slave");
     }
     return bRet;
 }
@@ -162,21 +162,21 @@ int CAudioModel::saveAudioInfo(uint32_t nFromId, uint32_t nToId, uint32_t nCreat
             if (pDBConn->ExecuteUpdate(strSql.c_str()))
             {
                 nAudioId = pDBConn->GetInsertId();
-                //log("audioId=%d", nAudioId);
+                log("audioId=%d", nAudioId);
             } else
             {
-                //log("sql failed: %s", strSql.c_str());
+                log("sql failed: %s", strSql.c_str());
             }
             pDBManager->RelDBConn(pDBConn);
         }
         else
         {
-            //log("no db connection for teamtalk_master");
+            log("no db connection for teamtalk_master");
         }
 	}
     else
     {
-        //log("upload file failed");
+        log("upload file failed");
     }
 	return nAudioId;
 }
@@ -213,7 +213,7 @@ bool CAudioModel::readAudioContent(uint32_t nCostTime, uint32_t nSize, const str
         return false;
     }
 
-    //log("download_path=%s, data_len=%d", strPath.c_str(), cAudioMsg.data_len);
+    log("download_path=%s, data_len=%d", strPath.c_str(), cAudioMsg.data_len);
     cMsg.set_msg_data((const char*)cAudioMsg.data, cAudioMsg.data_len);
     
     delete [] pData;

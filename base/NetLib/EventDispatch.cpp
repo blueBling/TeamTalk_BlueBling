@@ -204,7 +204,7 @@ void CEventDispatch::StartDispatch(uint32_t wait_timeout)
 
 		for (u_int i = 0; i < read_set.fd_count; i++)
 		{
-			//log("select return read count=%d\n", read_set.fd_count);
+			log("select return read count=%d\n", read_set.fd_count);
 			SOCKET fd = read_set.fd_array[i];
 			CBaseSocket* pSocket = FindBaseSocket((net_handle_t)fd);
 			if (pSocket)
@@ -216,7 +216,7 @@ void CEventDispatch::StartDispatch(uint32_t wait_timeout)
 
 		for (u_int i = 0; i < write_set.fd_count; i++)
 		{
-			//log("select return write count=%d\n", write_set.fd_count);
+			log("select return write count=%d\n", write_set.fd_count);
 			SOCKET fd = write_set.fd_array[i];
 			CBaseSocket* pSocket = FindBaseSocket((net_handle_t)fd);
 			if (pSocket)
@@ -228,7 +228,7 @@ void CEventDispatch::StartDispatch(uint32_t wait_timeout)
 
 		for (u_int i = 0; i < excep_set.fd_count; i++)
 		{
-			//log("select return exception count=%d\n", excep_set.fd_count);
+			log("select return exception count=%d\n", excep_set.fd_count);
 			SOCKET fd = excep_set.fd_array[i];
 			CBaseSocket* pSocket = FindBaseSocket((net_handle_t)fd);
 			if (pSocket)
@@ -307,13 +307,13 @@ void CEventDispatch::StartDispatch(uint32_t wait_timeout)
 
 			if (events[i].filter == EVFILT_READ)
 			{
-				//log("OnRead, socket=%d\n", ev_fd);
+				log("OnRead, socket=%d\n", ev_fd);
 				pSocket->OnRead();
 			}
 
 			if (events[i].filter == EVFILT_WRITE)
 			{
-				//log("OnWrite, socket=%d\n", ev_fd);
+				log("OnWrite, socket=%d\n", ev_fd);
 				pSocket->OnWrite();
 			}
 
@@ -374,7 +374,7 @@ void CEventDispatch::StartDispatch(uint32_t wait_timeout)
             #ifdef EPOLLRDHUP
             if (events[i].events & EPOLLRDHUP)
             {
-                //log("On Peer Close, socket=%d, ev_fd);
+                log("On Peer Close, socket=%d", ev_fd);
                 pSocket->OnClose();
             }
             #endif
@@ -382,19 +382,19 @@ void CEventDispatch::StartDispatch(uint32_t wait_timeout)
 
 			if (events[i].events & EPOLLIN)
 			{
-				//log("OnRead, socket=%d\n", ev_fd);
+				log("OnRead, socket=%d\n", ev_fd);
 				pSocket->OnRead();
 			}
 
 			if (events[i].events & EPOLLOUT)
 			{
-				//log("OnWrite, socket=%d\n", ev_fd);
+				log("OnWrite, socket=%d\n", ev_fd);
 				pSocket->OnWrite();
 			}
 
 			if (events[i].events & (EPOLLPRI | EPOLLERR | EPOLLHUP))
 			{
-				//log("OnClose, socket=%d\n", ev_fd);
+				log("OnClose, socket=%d\n", ev_fd);
 				pSocket->OnClose();
 			}
 

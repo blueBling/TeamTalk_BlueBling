@@ -5,7 +5,7 @@
  *      Author: ziteng@mogujie.com
  */
 
-//#include "util.h"
+#include "util.h" //仅使用了log
 #include "ImPduBase.h"
 #include "IM.BaseDefine.pb.h"
 using namespace IM::BaseDefine;

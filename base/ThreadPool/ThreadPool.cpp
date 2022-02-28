@@ -6,7 +6,7 @@
  */
 
 #include <stdlib.h>
-//#include "util.h"
+#include "util.h" //仅使用了log
 #include "ThreadPool.h"
 
 ///////////
@@ -53,7 +53,7 @@ void CWorkerThread::Execute()
 		delete pTask;
 
 		m_task_cnt++;
-		//log("%d have the execute %d task\n", m_thread_idx, m_task_cnt);
+		log("%d have the execute %d task\n", m_thread_idx, m_task_cnt);
 	}
 }
 
