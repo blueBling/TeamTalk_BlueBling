@@ -13,5 +13,5 @@ set(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -ggdb3")
 set(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
  
 # 加载并处理一个子文件夹下的 CMakeLists.txt 文件
-add_subdirectory(${CMAKE_SOURCE_DIR}/SLog)
+add_subdirectory(${CMAKE_SOURCE_DIR}/base/SLog)
 add_subdirectory(${CMAKE_SOURCE_DIR}/Tests/build)
