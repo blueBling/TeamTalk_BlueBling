@@ -76,17 +76,17 @@ public:
     void SetError(uint16_t error);
     void SetSeqNum(uint16_t seq_num);
     void SetReversed(uint32_t reversed);
-    void WriteHeader();
+    void WriteHeader(); //通过m_pdu_header结构体信息构造m_buf字节数组头部信息
     
-    static bool IsPduAvailable(uchar_t* buf, uint32_t len, uint32_t& pdu_len);
+    static bool IsPduAvailable(uchar_t* buf, uint32_t len, uint32_t& pdu_len); //对数据包头部4个字节即长度来校验buf是否完整
     static CImPdu* ReadPdu(uchar_t* buf, uint32_t len);
-    void Write(uchar_t* buf, uint32_t len) { m_buf.Write((void*)buf, len); }
-    int ReadPduHeader(uchar_t* buf, uint32_t len);
-    void SetPBMsg(const google::protobuf::MessageLite* msg);
+    void Write(uchar_t* buf, uint32_t len) { m_buf.Write((void*)buf, len); } //通过buf构造CImPdu内部成员CSimpleBuffer	m_buf
+    int ReadPduHeader(uchar_t* buf, uint32_t len); //从buf解析出包头数据，将字节数组转化成struct PduHeader_t,实际是构造CImPdu内部成员PduHeader_t	m_pdu_header
+    void SetPBMsg(const google::protobuf::MessageLite* msg); //将protobuf msg序列化再加上pdu header,构造成完整pdu即m_buf
     
 protected:
-    CSimpleBuffer	m_buf;
-    PduHeader_t		m_pdu_header;
+    CSimpleBuffer	m_buf;        //pdu原始数据（header+protobuf序列化后的消息体）
+    PduHeader_t		m_pdu_header; //pdu消息头
 };
 
 

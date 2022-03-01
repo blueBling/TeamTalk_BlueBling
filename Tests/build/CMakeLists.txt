@@ -40,6 +40,7 @@ include_directories(${BASE_DIR}/HttpClient)
 include_directories(${DB_PROXY_SERVER_DIR}/CachePool)
 include_directories(${DB_PROXY_SERVER_DIR}/DbPool)
 include_directories(${DB_PROXY_SERVER_DIR}/AudioModel)
+include_directories(${DB_PROXY_SERVER_DIR}/DepartModel)
 
 
 # ImPduBase 依赖 protobuf
@@ -136,3 +137,8 @@ target_link_libraries(test_dbpool pthread mysqlclient slog)
 file(GLOB_RECURSE AUDIOMODEL_SRCS ${DB_PROXY_SERVER_DIR}/AudioModel/*.cpp)
 add_executable(test_audiomodel ${UTILPDU_SRCS} ${CONFIG_SRCS} ${LOCK_SRCS} ${UTIL_SRCS} ${THREADPOOL_SRCS} ${DBPOOL_SRCS} ${SRC_JSON} ${HTTPCLIENT_SRCS} ${SRC_PB} ${AUDIOMODEL_SRCS} ${HOME_DIR}/Tests/test_audiomodel.cpp)
 target_link_libraries(test_audiomodel pthread mysqlclient curl protobuf-lite slog)
+
+# DepartModel 依赖了 ImPduBase DbPool 依赖第三方开源库 protobuf
+file(GLOB_RECURSE DEPARTMODEL_SRCS ${DB_PROXY_SERVER_DIR}/DepartModel/*.cpp)
+add_executable(test_departmodel ${UTILPDU_SRCS} ${LOCK_SRCS} ${UTIL_SRCS} ${SRC_PB} ${CONFIG_SRCS} ${THREADPOOL_SRCS} ${DBPOOL_SRCS} ${IMPDUBASE_SRCS} ${DEPARTMODEL_SRCS} ${HOME_DIR}/Tests/test_departmodel.cpp)
+target_link_libraries(test_departmodel pthread protobuf-lite slog mysqlclient)

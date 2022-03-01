@@ -159,18 +159,18 @@ bool CImPdu::IsPduAvailable(uchar_t* buf, uint32_t len, uint32_t& pdu_len)
 void CImPdu::SetPBMsg(const google::protobuf::MessageLite* msg)
 {
     //设置包体，则需要重置下空间
-    m_buf.Read(NULL, m_buf.GetWriteOffset());
-    m_buf.Write(NULL, sizeof(PduHeader_t));
+    m_buf.Read(NULL, m_buf.GetWriteOffset()); //清空m_buf
+    m_buf.Write(NULL, sizeof(PduHeader_t));   //预留出header空间
     uint32_t msg_size = msg->ByteSize();
     uchar_t* szData = new uchar_t[msg_size];
     //ALLOC_FAIL_ASSERT(szData)
-    if (!msg->SerializeToArray(szData, msg_size))
+    if (!msg->SerializeToArray(szData, msg_size)) //序列化msg
     {
         //log_error("pb msg miss required fields.");
     }
     
-    m_buf.Write(szData, msg_size);
+    m_buf.Write(szData, msg_size); //将序列化后的msg追加到m_buf(header后)
     delete []szData;
-    WriteHeader();
+    WriteHeader(); //写入头部信息
 }
 
