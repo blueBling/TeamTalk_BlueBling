@@ -44,6 +44,7 @@ include_directories(${DB_PROXY_SERVER_DIR}/DepartModel)
 include_directories(${DB_PROXY_SERVER_DIR}/UserModel)
 include_directories(${DB_PROXY_SERVER_DIR}/GroupModel)
 include_directories(${DB_PROXY_SERVER_DIR}/FileModel)
+include_directories(${DB_PROXY_SERVER_DIR}/SessionModel)
 
 
 # ImPduBase 依赖 protobuf
@@ -162,3 +163,8 @@ target_link_libraries(test_groupmodel pthread protobuf-lite slog mysqlclient hir
 file(GLOB_RECURSE FILEMODEL_SRCS ${DB_PROXY_SERVER_DIR}/FileModel/*.cpp)
 add_executable(test_filemodel ${UTILPDU_SRCS} ${LOCK_SRCS} ${UTIL_SRCS} ${SRC_PB} ${IMPDUBASE_SRCS} ${CONFIG_SRCS} ${THREADPOOL_SRCS} ${DBPOOL_SRCS} ${FILEMODEL_SRCS} ${HOME_DIR}/Tests/test_filemodel.cpp)
 target_link_libraries(test_filemodel pthread protobuf-lite slog mysqlclient)
+
+# SessionModel 依赖了 ImPduBase DbPool 依赖第三方开源库 protobuf
+file(GLOB_RECURSE SESSIONMODEL_SRCS ${DB_PROXY_SERVER_DIR}/SessionModel/*.cpp)
+add_executable(test_sessionmodel ${UTILPDU_SRCS} ${LOCK_SRCS} ${UTIL_SRCS} ${SRC_PB} ${IMPDUBASE_SRCS} ${CONFIG_SRCS} ${THREADPOOL_SRCS} ${DBPOOL_SRCS} ${SESSIONMODEL_SRCS} ${HOME_DIR}/Tests/test_sessionmodel.cpp)
+target_link_libraries(test_sessionmodel pthread protobuf-lite slog mysqlclient)
