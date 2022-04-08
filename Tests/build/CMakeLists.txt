@@ -46,6 +46,7 @@ include_directories(${DB_PROXY_SERVER_DIR}/GroupModel)
 include_directories(${DB_PROXY_SERVER_DIR}/FileModel)
 include_directories(${DB_PROXY_SERVER_DIR}/SessionModel)
 include_directories(${DB_PROXY_SERVER_DIR}/RelationModel)
+include_directories(${DB_PROXY_SERVER_DIR}/GroupMessageModel)
 
 
 # ImPduBase 依赖 protobuf
@@ -175,3 +176,9 @@ target_link_libraries(test_sessionmodel pthread protobuf-lite slog mysqlclient)
 file(GLOB_RECURSE RELATIONMODEL_SRCS ${DB_PROXY_SERVER_DIR}/RelationModel/*.cpp)
 add_executable(test_relationmodel ${LOCK_SRCS} ${UTIL_SRCS} ${CONFIG_SRCS} ${THREADPOOL_SRCS} ${DBPOOL_SRCS} ${RELATIONMODEL_SRCS} ${HOME_DIR}/Tests/test_relationmodel.cpp)
 target_link_libraries(test_relationmodel pthread slog mysqlclient)
+
+
+# GroupMessageModel 依赖了 Util ImPduBase DbPool CachePool AudioModel GroupModel
+file(GLOB_RECURSE GROUPMSGMODEL_SRCS ${DB_PROXY_SERVER_DIR}/GroupMessageModel/*.cpp)
+add_executable(test_groupmsgmodel  ${LOCK_SRCS} ${UTIL_SRCS} ${UTILPDU_SRCS} ${SRC_PB} ${IMPDUBASE_SRCS} ${CONFIG_SRCS} ${THREADPOOL_SRCS} ${DBPOOL_SRCS} ${CACHEPOOL_SRCS} ${SRC_JSON} ${HTTPCLIENT_SRCS} ${AUDIOMODEL_SRCS} ${GROUPMODEL_SRCS} ${GROUPMSGMODEL_SRCS} ${HOME_DIR}/Tests/test_groupmsgmodel.cpp)
+target_link_libraries(test_groupmsgmodel pthread slog protobuf-lite mysqlclient curl hiredis)
