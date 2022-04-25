@@ -20,11 +20,10 @@
 #include <set>
 
 //#include "MessageModel.h"
+#include "ostype.h" // add by blueBling, only use INVALID_VALUE
 #include "IM.BaseDefine.pb.h"
 
 //+++ start +++ add by blueBling
-const uint32_t INVALID_VALUE = 0; //from ostype.h
-
 enum {
     IM_GROUP_SETTING_PUSH = 1,
 };                               //from public_defin.h

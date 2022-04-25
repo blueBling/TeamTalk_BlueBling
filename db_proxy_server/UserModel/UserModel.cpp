@@ -253,9 +253,8 @@ bool CUserModel::insertUser(DBUserInfo_t &cUser)
 }
 
 
-//切换到unread数据库，
-//若为私聊信息，则删除哈希表中key为unread_nUserId field为nPeerId的字段；
-//若为群消息，则获取哈希表中key为nPeerId_im_group_msg的所有字段并将其拷贝一份，其key为nUserId_nPeerId_im_user_group
+// nSessionType为私聊信息时，清空redis unread unread_xx nUserId和nPeerId之间的用户计数
+// nSessionType为群消息时，重置redis unread nUserId_nPeerId_im_user_group内容计数为nPeerId_im_group_msg计数
 void CUserModel::clearUserCounter(uint32_t nUserId, uint32_t nPeerId, IM::BaseDefine::SessionType nSessionType)
 {
     if(IM::BaseDefine::SessionType_IsValid(nSessionType))

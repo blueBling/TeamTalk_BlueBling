@@ -15,13 +15,11 @@
 #include <list>
 
 #include "util.h"
+#include "ostype.h" // add by blueBling, only use INVALID_VALUE
 //#include "ImPduBase.h"
 //#include "IM.BaseDefine.pb.h"
 
 using namespace std;
-
-
-const uint32_t INVALID_VALUE = 0; //add by blueBling
 
 class CRelationModel {
 public:

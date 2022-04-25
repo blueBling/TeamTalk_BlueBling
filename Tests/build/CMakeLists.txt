@@ -22,10 +22,40 @@ set(HOME_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../..)
 set(BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../base)
 set(DB_PROXY_SERVER_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../db_proxy_server)
 
-message("BASE_DIR:${BASE_DIR}")
+# message("BASE_DIR:${BASE_DIR}")
+
+# Base 模块所有头文件
+file(GLOB_RECURSE BASE_INC ${BASE_DIR}/*.h)
+
+# Base 模块所有源文件
+file(GLOB_RECURSE BASE_SRCS ${BASE_DIR}/*.cpp)
+file(GLOB_RECURSE SLOG_CMAKE_SRCS ${BASE_DIR}/SLog/*.cpp)
+list(REMOVE_ITEM BASE_SRCS ${SLOG_CMAKE_SRCS})
+
+# DB_PROXY_SERVER 模块所有头文件
+file(GLOB_RECURSE DB_PROXY_SERVER_INC ${DB_PROXY_SERVER_DIR}/*.h)
+
+# DB_PROXY_SERVER 模块所有源文件
+file(GLOB_RECURSE DB_PROXY_SERVER_SRCS ${DB_PROXY_SERVER_DIR}/*.cpp)
+
+# JSON 源文件
+aux_source_directory(${HOME_DIR}/3rdParty/jsoncpp SRC_JSON)
+
+# IM自定义通信protobuf源文件
+aux_source_directory(${HOME_DIR}/3rdParty/pb/protocol SRC_PB)
+
+# protobuf-lite 库目录
+SET(PB_LIB_DIR ${HOME_DIR}/3rdParty/pb/lib/linux)
+
+# Mysql 头文件
+SET(MYSQL_INCLUDE_DIR /usr/include/mysql)
+
+# Mysql 库文件
+SET(MYSQL_LIB /usr/lib64/mysql)
  
 # 指定头文件目录
-include_directories(${BASE_DIR} ${BASE_DIR}/SLog)
+include_directories(${BASE_DIR})
+include_directories(${BASE_DIR}/SLog)
 include_directories(${BASE_DIR}/Config)
 include_directories(${BASE_DIR}/UtilPdu)
 include_directories(${BASE_DIR}/EncDec)
@@ -47,23 +77,18 @@ include_directories(${DB_PROXY_SERVER_DIR}/FileModel)
 include_directories(${DB_PROXY_SERVER_DIR}/SessionModel)
 include_directories(${DB_PROXY_SERVER_DIR}/RelationModel)
 include_directories(${DB_PROXY_SERVER_DIR}/GroupMessageModel)
-
+include_directories(${DB_PROXY_SERVER_DIR}/MessageModel)
 
 # ImPduBase 依赖 protobuf
-SET(PB_LIB_DIR ${HOME_DIR}/3rdParty/pb/lib/linux)
 include_directories(${HOME_DIR}/3rdParty ${HOME_DIR}/3rdParty/pb ${HOME_DIR}/3rdParty/pb/protocol)
 
 # HttpClient 依赖 jsoncpp
-SET(JSON_LIB_DIR ${HOME_DIR}/3rdParty/jsoncpp)
 include_directories(${HOME_DIR}/3rdParty/jsoncpp)
 
 # DbPool 依赖 mysql
-SET(MYSQL_INCLUDE_DIR /usr/include/mysql)
 include_directories(${MYSQL_INCLUDE_DIR})
-SET(MYSQL_LIB /usr/lib64/mysql)
 
 
-# 指定链接库路径和链接库等并生成可执行文件
 # SLog 这里直接使用了自己生成的libslog.so而libslog.so依赖了第三方开源库log4cxx
 link_directories(${BASE_DIR}/SLog)
 link_libraries(slog)
@@ -101,7 +126,6 @@ target_link_libraries(test_lock pthread slog)
 
 
 # ImPduBase 依赖了 UtilPdu Util 依赖第三方开源库 protobuf
-aux_source_directory(${HOME_DIR}/3rdParty/pb/protocol SRC_PB)
 link_directories(${PB_LIB_DIR})
 file(GLOB_RECURSE IMPDUBASE_SRCS ${BASE_DIR}/ImPduBase/*.cpp)
 add_executable(test_impdubase ${UTILPDU_SRCS} ${LOCK_SRCS} ${UTIL_SRCS} ${SRC_PB} ${IMPDUBASE_SRCS} ${HOME_DIR}/Tests/test_impdubase.cpp)
@@ -123,7 +147,6 @@ add_executable(test_imconn ${LOCK_SRCS} ${UTIL_SRCS} ${UTILPDU_SRCS} ${IMPDUBASE
 target_link_libraries(test_imconn pthread protobuf-lite slog)
 
 # HttpClient 依赖第三方库 curl jsoncpp
-aux_source_directory(${JSON_LIB_DIR} SRC_JSON)
 file(GLOB_RECURSE HTTPCLIENT_SRCS ${BASE_DIR}/HttpClient/*.cpp)
 add_executable(test_httpclient ${SRC_JSON} ${HTTPCLIENT_SRCS} ${HOME_DIR}/Tests/test_httpclient.cpp)
 target_link_libraries(test_httpclient curl)
@@ -182,3 +205,8 @@ target_link_libraries(test_relationmodel pthread slog mysqlclient)
 file(GLOB_RECURSE GROUPMSGMODEL_SRCS ${DB_PROXY_SERVER_DIR}/GroupMessageModel/*.cpp)
 add_executable(test_groupmsgmodel  ${LOCK_SRCS} ${UTIL_SRCS} ${UTILPDU_SRCS} ${SRC_PB} ${IMPDUBASE_SRCS} ${CONFIG_SRCS} ${THREADPOOL_SRCS} ${DBPOOL_SRCS} ${CACHEPOOL_SRCS} ${SRC_JSON} ${HTTPCLIENT_SRCS} ${AUDIOMODEL_SRCS} ${GROUPMODEL_SRCS} ${GROUPMSGMODEL_SRCS} ${HOME_DIR}/Tests/test_groupmsgmodel.cpp)
 target_link_libraries(test_groupmsgmodel pthread slog protobuf-lite mysqlclient curl hiredis)
+
+
+# MessageModel 依赖太麻烦了，直接包含所有吧
+add_executable(test_messagemodel  ${SRC_JSON} ${SRC_PB} ${BASE_SRCS} ${DB_PROXY_SERVER_SRCS} ${HOME_DIR}/Tests/test_messagemodel.cpp)
+target_link_libraries(test_messagemodel crypto pthread slog protobuf-lite mysqlclient curl hiredis)
