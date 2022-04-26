@@ -9,14 +9,7 @@
 #ifndef http_msg_server_HttpParserWrapper_h
 #define http_msg_server_HttpParserWrapper_h
 
-//+++ start +++ add by blueBling +++ 
-#include <string>
-
-#include <string.h>
-using std::string;
-//+++   end +++ add by blueBling +++ 
-
-//#include "util.h"
+#include "util.h"
 #include "http_parser.h"
 
 // extract url and content body from an ajax request

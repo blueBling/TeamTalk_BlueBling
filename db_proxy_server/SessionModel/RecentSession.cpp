@@ -13,16 +13,16 @@
 #include <list>
 #include <vector>
 
-//#include "../ProxyConn.h"
+//#include "../ProxyConn.h" comment by blueBling
 //#include "../DBPool.h"
 //#include "../CachePool.h"
+#include "DBPool.h"
+#include "CachePool.h"
 #include "SessionModel.h"
 #include "RecentSession.h"
-//#include "UserModel.h"
-//#include "GroupModel.h"
+#include "UserModel.h"
+#include "GroupModel.h"
 #include "IM.Buddy.pb.h"
-#include "util.h"
-
 
 using namespace std;
 
@@ -105,7 +105,7 @@ namespace DB_PROXY {
                     // if remove session success, we need to clear the unread msg count
                     if (bRet)
                     {
-                        //CUserModel::getInstance()->clearUserCounter(nUserId, nPeerId, nType); //comment by blueBling
+                        CUserModel::getInstance()->clearUserCounter(nUserId, nPeerId, nType);
                     }
                 }
                 log("userId=%d, peerId=%d, result=%s", nUserId, nPeerId, bRet?"success":"failed");

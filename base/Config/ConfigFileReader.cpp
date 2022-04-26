@@ -53,8 +53,7 @@ void CConfigFileReader::_LoadFile(const char* filename)
 	FILE* fp = fopen(filename, "r");
 	if (!fp)
 	{
-		//log_error("can not open %s,errno = %d", filename,errno);
-		printf("can not open %s,errno = %d", filename,errno);
+		log_error("can not open %s,errno = %d", filename,errno);
 		return;
 	}
 

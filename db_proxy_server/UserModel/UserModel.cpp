@@ -13,8 +13,8 @@
 //#include "../CachePool.h"
 #include "DBPool.h"
 #include "CachePool.h"
-//#include "Common.h"
-//#include "SyncCenter.h"
+#include "Common.h"
+//#include "SyncCenter.h" comment by blueBling
 
 
 CUserModel* CUserModel::m_pInstance = NULL;

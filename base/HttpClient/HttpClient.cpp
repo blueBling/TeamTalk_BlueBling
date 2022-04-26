@@ -13,7 +13,7 @@
 #include <string>
 #include "HttpClient.h"
 #include "json/json.h"
-//#include "util.h"
+#include "util.h"
 using namespace std;
 
 size_t write_data_string(void *ptr, size_t size, size_t nmemb, void *userp)
@@ -144,7 +144,7 @@ string CHttpClient::UploadByteFile(const string &strUrl, void* pData, int nSize)
     curl_easy_cleanup(curl);
     
     if (CURLE_OK != res) {
-        //log_error("curl_easy_perform failed, res=%d", res);
+        log_error("curl_easy_perform failed, res=%d", res);
         return "";
     }
     
@@ -153,18 +153,18 @@ string CHttpClient::UploadByteFile(const string &strUrl, void* pData, int nSize)
     Json::Value value;
     
     if (!reader.parse(strResp, value)) {
-        //log_error("json parse failed: %s", strResp.c_str());
+        log_error("json parse failed: %s", strResp.c_str());
         return "";
     }
     
     if (value["error_code"].isNull()) {
-        //log_error("no code in response %s", strResp.c_str());
+        log_error("no code in response %s", strResp.c_str());
         return "";
     }
     uint32_t nRet = value["error_code"].asUInt();
     if(nRet != 0)
     {
-        //log_error("upload faile:%u", nRet);
+        log_error("upload faile:%u", nRet);
         return "";
     }
     return value["url"].asString();
@@ -187,7 +187,7 @@ bool CHttpClient::DownloadByteFile(const string &url, AudioMsgInfo* pAudioMsg)
     int retcode = 0;
     res = curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE , &retcode);
     if(CURLE_OK != res || retcode != 200) {
-        //log_error("curl_easy_perform failed, res=%d, ret=%u", res, retcode);
+        log_error("curl_easy_perform failed, res=%d, ret=%u", res, retcode);
     }
     double nLen = 0;
     res = curl_easy_getinfo(curl, CURLINFO_CONTENT_LENGTH_DOWNLOAD , &nLen);

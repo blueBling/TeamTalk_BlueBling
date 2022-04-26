@@ -8,16 +8,7 @@
 #ifndef CONFIGFILEREADER_H_
 #define CONFIGFILEREADER_H_
 
-#include<stdio.h>
-#include<string>
-#include<map>
-#include <utility>      // std::pair
-
-#include<string.h>
-
-using std::string;
-using std::map;
-using std::make_pair;
+#include "util.h"
 
 class CConfigFileReader
 {

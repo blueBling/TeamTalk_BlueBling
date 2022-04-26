@@ -9,7 +9,7 @@
  *
  ================================================================*/
 
-//#include "../ProxyConn.h"
+//#include "../ProxyConn.h" comment by blueBling
 //#include "../CachePool.h"
 #include "CachePool.h"
 #include "MessageCounter.h"

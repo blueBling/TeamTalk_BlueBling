@@ -9,7 +9,7 @@
  *
  ================================================================*/
 
-//#include "../ProxyConn.h"
+//#include "../ProxyConn.h" comment by blueBling
 //#include "../CachePool.h"
 //#include "../DBPool.h"
 #include "CachePool.h"
@@ -17,7 +17,7 @@
 #include "MessageContent.h"
 #include "MessageModel.h"
 #include "GroupMessageModel.h"
-//#include "Common.h"
+#include "Common.h"
 #include "GroupModel.h"
 #include "ImPduBase.h"
 #include "IM.Message.pb.h"

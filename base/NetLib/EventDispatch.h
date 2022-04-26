@@ -11,10 +11,6 @@
 
 #include "Lock.h"
 
-#include <list>
-
-using std::list;
-
 enum {
 	SOCKET_READ		= 0x1,
 	SOCKET_WRITE	= 0x2,

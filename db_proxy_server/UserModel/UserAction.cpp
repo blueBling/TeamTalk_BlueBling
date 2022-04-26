@@ -12,24 +12,21 @@
 #include <list>
 #include <map>
 
-//#include "../ProxyConn.h"
+//#include "../ProxyConn.h" comment by blueBling
 //#include "../DBPool.h"
 #include "DBPool.h"
 #include "CachePool.h"
-//#include "../SyncCenter.h"
-//#include "public_define.h"
+//#include "../SyncCenter.h" comment by blueBling
+#include "public_define.h"
 #include "UserModel.h"
-#include "IM.Message.pb.h"
-#include "IM.BaseDefine.pb.h"
 #include "IM.Login.pb.h"
-#include "IM.Server.pb.h"
 #include "IM.Buddy.pb.h"
+#include "IM.BaseDefine.pb.h"
 
 
-namespace DB_PROXY
-{
 
-	//处理用户详情请求消息；
+namespace DB_PROXY {
+
 	//先解析pdu，再调用CUserModel::getUsers获取id在user_id_list的用户详情，然后封装成响应pdu扔到响应loop中等待发送
     void getUserInfo(CImPdu* pPdu, uint32_t conn_uuid)
     {

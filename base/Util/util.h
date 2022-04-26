@@ -4,7 +4,7 @@
 #define _CRT_SECURE_NO_DEPRECATE	// remove warning C4996, 
 
 #include "ostype.h"
-//#include "UtilPdu.h"
+#include "UtilPdu.h"
 #include "Lock.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,8 +26,6 @@
 #include <time.h>
 #include <sys/time.h>
 #endif
-
-using std::string;
 
 #define NOTUSED_ARG(v) ((void)v)		// used this to remove warning C4100, unreferenced parameter
 

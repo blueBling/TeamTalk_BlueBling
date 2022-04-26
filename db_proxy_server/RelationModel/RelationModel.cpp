@@ -14,8 +14,8 @@
 //#include "../DBPool.h"
 #include "DBPool.h"
 #include "RelationModel.h"
-//#include "MessageModel.h"
-//#include "GroupMessageModel.h"
+#include "MessageModel.h"
+#include "GroupMessageModel.h"
 using namespace std;
 
 CRelationModel* CRelationModel::m_pInstance = NULL;
@@ -143,12 +143,11 @@ uint32_t CRelationModel::addRelation(uint32_t nSmallId, uint32_t nBigId)
             }
             if(nRelationId != INVALID_VALUE)
             {
-// comment by blueBling
-//                // 初始化msgId
-//                if(!CMessageModel::getInstance()->resetMsgId(nRelationId))
-//                {
-//                    log("reset msgId failed. smallId=%u, bigId=%u.", nSmallId, nBigId);
-//                }
+                // 初始化msgId
+                if(!CMessageModel::getInstance()->resetMsgId(nRelationId))
+                {
+                    log("reset msgId failed. smallId=%u, bigId=%u.", nSmallId, nBigId);
+                }
             }
             delete stmt;
         }

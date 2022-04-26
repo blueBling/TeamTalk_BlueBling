@@ -9,9 +9,8 @@
 *
 ================================================================*/
 #include "FileModel.h"
+//#include "../DBPool.h"
 #include "DBPool.h"
-#include "util.h"
-
 
 CFileModel* CFileModel::m_pInstance = NULL;
 

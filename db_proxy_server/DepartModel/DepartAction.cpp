@@ -11,8 +11,8 @@
 #include "DepartAction.h"
 #include "DepartModel.h"
 #include "IM.Buddy.pb.h"
-#include "util.h"
-//#include "../ProxyConn.h"
+#include "util.h" // add by blueBling
+//#include "../ProxyConn.h" comment by blueBling
 
 namespace DB_PROXY{
     void getChgedDepart(CImPdu* pPdu, uint32_t conn_uuid)

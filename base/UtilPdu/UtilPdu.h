@@ -8,7 +8,7 @@
 #ifndef UTILPDU_H_
 #define UTILPDU_H_
 
-
+#include "ostype.h"
 #include <set>
 #include <map>
 #include <list>
@@ -25,7 +25,6 @@ using namespace std;
 	#define DLL_MODIFIER
 #endif
 
-typedef unsigned char	uchar_t;
 
 
 // exception code

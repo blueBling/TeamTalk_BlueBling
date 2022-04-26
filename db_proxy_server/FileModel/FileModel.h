@@ -11,20 +11,8 @@
 ================================================================*/
 #ifndef __FILEMODEL_H__
 #define __FILEMODEL_H__
-
-//#include "IM.File.pb.h"
-//#include "ImPduBase.h"
-
-//+++ start +++ add by blueBling
-#include "IM.BaseDefine.pb.h"
-
-#include <list>
-#include <string>
-
-using std::list;
-using std::string;
-
-//+++  end +++ add by blueBling
+#include "IM.File.pb.h"
+#include "ImPduBase.h"
 
 class CFileModel
 {

@@ -9,18 +9,19 @@
  *
  ================================================================*/
 
+//#include "../DBPool.h"
+//#include "../CachePool.h"
 #include "DBPool.h"
 #include "CachePool.h"
 
 #include "GroupModel.h"
-//#include "ImPduBase.h"
-//#include "Common.h"
-//#include "AudioModel.h"
-//#include "UserModel.h"
-//#include "GroupMessageModel.h"
-//#include "public_define.h"
-//#include "SessionModel.h"
-#include "util.h"
+#include "ImPduBase.h"
+#include "Common.h"
+#include "AudioModel.h"
+#include "UserModel.h"
+#include "GroupMessageModel.h"
+#include "public_define.h"
+#include "SessionModel.h"
 
 CGroupModel* CGroupModel::m_pInstance = NULL;
 
@@ -73,13 +74,11 @@ uint32_t CGroupModel::createGroup(uint32_t nUserId, const string& strGroupName, 
         if(!insertNewGroup(nUserId, strGroupName, strGroupAvatar, nGroupType, (uint32_t)setMember.size(), nGroupId)) {
             break;
         }
-
-//comment by blueBling
-//        bool bRet = CGroupMessageModel::getInstance()->resetMsgId(nGroupId);
-//        if(!bRet)
-//        {
-//            log("reset msgId failed. groupId=%u", nGroupId);
-//        }
+        bool bRet = CGroupMessageModel::getInstance()->resetMsgId(nGroupId);
+        if(!bRet)
+        {
+            log("reset msgId failed. groupId=%u", nGroupId);
+        }
         
         //insert IMGroupMember
         clearGroupMember(nGroupId);
@@ -89,7 +88,6 @@ uint32_t CGroupModel::createGroup(uint32_t nUserId, const string& strGroupName, 
     
     return nGroupId;
 }
-
 
 bool CGroupModel::removeGroup(uint32_t nUserId, uint32_t nGroupId, list<uint32_t>& lsCurUserId)
 {
@@ -246,11 +244,10 @@ bool CGroupModel::modifyGroupMember(uint32_t nUserId, uint32_t nGroupId, IM::Bas
         if(bRet)
         {
             incGroupVersion(nGroupId);
-// comment by blueBling
-//            for (auto it=setUserId.begin(); it!=setUserId.end(); ++it) {
-//                uint32_t nUserId=*it;
-//                CUserModel::getInstance()->clearUserCounter(nUserId, nGroupId, IM::BaseDefine::SESSION_TYPE_GROUP);
-//            }
+            for (auto it=setUserId.begin(); it!=setUserId.end(); ++it) {
+                uint32_t nUserId=*it;
+                CUserModel::getInstance()->clearUserCounter(nUserId, nGroupId, IM::BaseDefine::SESSION_TYPE_GROUP);
+            }
         }
     }
     else
@@ -886,13 +883,12 @@ bool CGroupModel::isValidateGroupId(uint32_t nGroupId)
 
 void CGroupModel::removeSession(uint32_t nGroupId, const set<uint32_t> &setUser)
 {
-//comment by blueBling
-//    for(auto it=setUser.begin(); it!=setUser.end(); ++it)
-//    {
-//        uint32_t nUserId=*it;
-//        uint32_t nSessionId = CSessionModel::getInstance()->getSessionId(nUserId, nGroupId, IM::BaseDefine::SESSION_TYPE_GROUP, false);
-//        CSessionModel::getInstance()->removeSession(nSessionId);
-//    }
+    for(auto it=setUser.begin(); it!=setUser.end(); ++it)
+    {
+        uint32_t nUserId=*it;
+        uint32_t nSessionId = CSessionModel::getInstance()->getSessionId(nUserId, nGroupId, IM::BaseDefine::SESSION_TYPE_GROUP, false);
+        CSessionModel::getInstance()->removeSession(nSessionId);
+    }
 }
 
 //将mysql IMGroup里id为nGroupId的version加1

@@ -12,7 +12,6 @@
 #ifndef __SESSIONMODEL_H__
 #define __SESSIONMODEL_H__
 
-#include "ostype.h" // add by blueBling, only use INVALID_VALUE
 #include "ImPduBase.h"
 #include "IM.BaseDefine.pb.h"
 

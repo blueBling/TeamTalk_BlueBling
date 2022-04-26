@@ -7,6 +7,7 @@
 //
 
 #include "HttpClient.h"
+#include "json/json.h"
 
 int test_httpclient(){
 	CHttpClient httpClient;

@@ -17,8 +17,8 @@
 
 #include "util.h"
 #include "ImPduBase.h"
-//#include "AudioModel.h"
-//#include "GroupModel.h"
+#include "AudioModel.h"
+#include "GroupModel.h"
 #include "IM.BaseDefine.pb.h"
 
 using namespace std;

@@ -14,27 +14,8 @@
 #define __HTTP_CURL_H__
 
 #include <string>
-
 #include <curl/curl.h>
-#include <string.h>
-
-#include "json/json.h"
-//#include "public_define.h"
-
-//+++ start +++ add by blueBling
-using std::string;
-
-typedef unsigned char	uchar_t;
-
-typedef struct AudioMsgInfo{
-    uint32_t    audioId;
-    uint32_t    fileSize;
-    uint32_t    data_len;
-    uchar_t*    data;
-    string      path;
-    
-} AudioMsgInfo_t;
-//+++ end +++ add by blueBling
+#include "public_define.h"
 
 class CHttpClient
 {

@@ -12,19 +12,11 @@
 #define CACHEPOOL_H_
 
 #include <vector>
-#include <string>
-#include <map>
-#include <list>
 //#include "../base/util.h"
 #include "util.h"
 #include "ThreadPool.h"
 //#include "hiredis.h" //teamtalk原本方案是直接编译hiredis源码，将头文件和库文件拷贝到自己工程里,参见make_hiredis.sh
 #include <hiredis/hiredis.h>   //这里ubuntu 16.04直接源码编译安装，默认安装到/usr/local/下
-
-using std::string;
-using std::vector;
-using std::map;
-using std::list;
 
 class CachePool;
 

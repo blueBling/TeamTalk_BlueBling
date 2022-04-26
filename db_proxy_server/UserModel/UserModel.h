@@ -14,50 +14,7 @@
 
 #include "IM.BaseDefine.pb.h"
 #include "ImPduBase.h"
-//#include "public_define.h"
-
-//+++ start +++ add by blueBling
-#define     GROUP_TOTAL_MSG_COUNTER_REDIS_KEY_SUFFIX    "_im_group_msg"
-#define     GROUP_USER_MSG_COUNTER_REDIS_KEY_SUFFIX     "_im_user_group"
-
-
-typedef struct DBUserInfo_t
-{
-    uint32_t nId;//用户ID
-    uint8_t nSex;// 用户性别 1.男;2.女
-    uint8_t nStatus; // 用户状态0 正常， 1 离职
-    uint32_t nDeptId;// 所属部门
-    string strNick;// 花名
-    string strDomain;// 花名拼音
-    string strName;// 真名
-    string strTel;// 手机号码
-    string strEmail;// Email
-    string strAvatar;// 头像
-    string sign_info;//个性签名
-    DBUserInfo_t& operator=(const DBUserInfo_t& rhs)
-    {
-        if(this != &rhs)
-        {
-            nId = rhs.nId;
-            nSex = rhs.nSex;
-            nStatus = rhs.nStatus;
-            nDeptId = rhs.nDeptId;
-            strNick = rhs.strNick;
-            strDomain = rhs.strDomain;
-            strName = rhs.strName;
-            strTel = rhs.strTel;
-            strEmail = rhs.strEmail;
-            strAvatar = rhs.strAvatar;
-            sign_info = rhs.sign_info;
-        }
-        return *this;
-    }
-    
-} DBUserInfo_t;
-
-//typedef hash_map<uint32_t, DBUserInfo_t*> DBUserMap_t;
-//+++ end +++ add by blueBling
-
+#include "public_define.h"
 
 class CUserModel
 {

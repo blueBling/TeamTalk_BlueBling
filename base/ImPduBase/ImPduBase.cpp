@@ -166,7 +166,7 @@ void CImPdu::SetPBMsg(const google::protobuf::MessageLite* msg)
     //ALLOC_FAIL_ASSERT(szData)
     if (!msg->SerializeToArray(szData, msg_size)) //序列化msg
     {
-        //log_error("pb msg miss required fields.");
+        log_error("pb msg miss required fields.");
     }
     
     m_buf.Write(szData, msg_size); //将序列化后的msg追加到m_buf(header后)

@@ -18,21 +18,15 @@
 #include "CachePool.h"
 #include "GroupMessageModel.h"
 #include "AudioModel.h"
-//#include "SessionModel.h"
-//#include "MessageCounter.h"
-//#include "Common.h"
+#include "SessionModel.h"
+#include "MessageCounter.h"
+#include "Common.h"
 #include "GroupModel.h"
 
 using namespace std;
 
-//+++ start +++  add by blueBling from Common.h
-#define     GROUP_TOTAL_MSG_COUNTER_REDIS_KEY_SUFFIX    "_im_group_msg"
-#define     GROUP_USER_MSG_COUNTER_REDIS_KEY_SUFFIX     "_im_user_group"
-#define     GROUP_COUNTER_SUBKEY_COUNTER_FIELD          "count"
-//+++ end +++  add by blueBling from Common.h
-
-//extern string strAudioEnc;
-string strAudioEnc; //add by blueBling 
+//extern string strAudioEnc; // comment by blueBling
+string strAudioEnc; // add by blueBling 
 
 CGroupMessageModel* CGroupMessageModel::m_pInstance = NULL;
 

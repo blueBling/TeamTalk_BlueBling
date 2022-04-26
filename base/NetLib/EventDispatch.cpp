@@ -16,13 +16,13 @@ CEventDispatch::CEventDispatch()
 	m_kqfd = kqueue();
 	if (m_kqfd == -1)
 	{
-		printf("kqueue failed");
+		log_error("kqueue failed");
 	}
 #else
 	m_epfd = epoll_create(1024);
 	if (m_epfd == -1)
 	{
-		printf("epoll_create failed");
+		log_error("epoll_create failed");
 	}
 #endif
 }
@@ -192,7 +192,7 @@ void CEventDispatch::StartDispatch(uint32_t wait_timeout)
 
 		if (nfds == SOCKET_ERROR)
 		{
-			printf("select failed, error code: %d", GetLastError());
+			log_error("select failed, error code: %d", GetLastError());
 			Sleep(MIN_TIMER_DURATION);
 			continue;			// select again
 		}
@@ -204,7 +204,7 @@ void CEventDispatch::StartDispatch(uint32_t wait_timeout)
 
 		for (u_int i = 0; i < read_set.fd_count; i++)
 		{
-			log("select return read count=%d\n", read_set.fd_count);
+			//log("select return read count=%d\n", read_set.fd_count);
 			SOCKET fd = read_set.fd_array[i];
 			CBaseSocket* pSocket = FindBaseSocket((net_handle_t)fd);
 			if (pSocket)
@@ -216,7 +216,7 @@ void CEventDispatch::StartDispatch(uint32_t wait_timeout)
 
 		for (u_int i = 0; i < write_set.fd_count; i++)
 		{
-			log("select return write count=%d\n", write_set.fd_count);
+			//log("select return write count=%d\n", write_set.fd_count);
 			SOCKET fd = write_set.fd_array[i];
 			CBaseSocket* pSocket = FindBaseSocket((net_handle_t)fd);
 			if (pSocket)
@@ -228,7 +228,7 @@ void CEventDispatch::StartDispatch(uint32_t wait_timeout)
 
 		for (u_int i = 0; i < excep_set.fd_count; i++)
 		{
-			log("select return exception count=%d\n", excep_set.fd_count);
+			//log("select return exception count=%d\n", excep_set.fd_count);
 			SOCKET fd = excep_set.fd_array[i];
 			CBaseSocket* pSocket = FindBaseSocket((net_handle_t)fd);
 			if (pSocket)
@@ -307,13 +307,13 @@ void CEventDispatch::StartDispatch(uint32_t wait_timeout)
 
 			if (events[i].filter == EVFILT_READ)
 			{
-				log("OnRead, socket=%d\n", ev_fd);
+				//log("OnRead, socket=%d\n", ev_fd);
 				pSocket->OnRead();
 			}
 
 			if (events[i].filter == EVFILT_WRITE)
 			{
-				log("OnWrite, socket=%d\n", ev_fd);
+				//log("OnWrite, socket=%d\n", ev_fd);
 				pSocket->OnWrite();
 			}
 
@@ -339,7 +339,7 @@ void CEventDispatch::AddEvent(SOCKET fd, uint8_t socket_event)
 	ev.data.fd = fd;
 	if (epoll_ctl(m_epfd, EPOLL_CTL_ADD, fd, &ev) != 0)
 	{
-		printf("epoll_ctl() failed, errno=%d", errno);
+		log_error("epoll_ctl() failed, errno=%d", errno);
 	}
 }
 
@@ -347,7 +347,7 @@ void CEventDispatch::RemoveEvent(SOCKET fd, uint8_t socket_event)
 {
 	if (epoll_ctl(m_epfd, EPOLL_CTL_DEL, fd, NULL) != 0)
 	{
-		printf("epoll_ctl failed, errno=%d", errno);
+		log_error("epoll_ctl failed, errno=%d", errno);
 	}
 }
 
@@ -374,7 +374,7 @@ void CEventDispatch::StartDispatch(uint32_t wait_timeout)
             #ifdef EPOLLRDHUP
             if (events[i].events & EPOLLRDHUP)
             {
-                log("On Peer Close, socket=%d", ev_fd);
+                //log("On Peer Close, socket=%d, ev_fd);
                 pSocket->OnClose();
             }
             #endif
@@ -382,19 +382,19 @@ void CEventDispatch::StartDispatch(uint32_t wait_timeout)
 
 			if (events[i].events & EPOLLIN)
 			{
-				log("OnRead, socket=%d\n", ev_fd);
+				//log("OnRead, socket=%d\n", ev_fd);
 				pSocket->OnRead();
 			}
 
 			if (events[i].events & EPOLLOUT)
 			{
-				log("OnWrite, socket=%d\n", ev_fd);
+				//log("OnWrite, socket=%d\n", ev_fd);
 				pSocket->OnWrite();
 			}
 
 			if (events[i].events & (EPOLLPRI | EPOLLERR | EPOLLHUP))
 			{
-				log("OnClose, socket=%d\n", ev_fd);
+				//log("OnClose, socket=%d\n", ev_fd);
 				pSocket->OnClose();
 			}
 

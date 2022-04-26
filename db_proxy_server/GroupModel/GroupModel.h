@@ -19,15 +19,8 @@
 #include <map>
 #include <set>
 
-//#include "MessageModel.h"
-#include "ostype.h" // add by blueBling, only use INVALID_VALUE
+#include "MessageModel.h"
 #include "IM.BaseDefine.pb.h"
-
-//+++ start +++ add by blueBling
-enum {
-    IM_GROUP_SETTING_PUSH = 1,
-};                               //from public_defin.h
-//+++  end +++ add by blueBling
 
 using namespace std;
 

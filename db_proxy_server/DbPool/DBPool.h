@@ -16,16 +16,6 @@
 #include "ThreadPool.h"
 #include <mysql.h>
 
-//+++ start +++ add by blueBling
-#include <string>
-#include <map>
-#include <list>
-
-using std::string;
-using std::map;
-using std::list;
-//+++ end +++ add by blueBling
-
 #define MAX_ESCAPE_STRING_LEN	10240
 
 class CResultSet {
@@ -135,10 +125,10 @@ public:
 
 	CDBConn* GetDBConn(const char* dbpool_name);
 	void RelDBConn(CDBConn* pConn);
-public:
+private:
 	CDBManager();
 
-public:
+private:
 	static CDBManager*		s_db_manager;
 	map<string, CDBPool*>	m_dbpool_map;
 };

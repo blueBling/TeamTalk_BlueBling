@@ -10,8 +10,8 @@
 ================================================================*/
 #include "SessionModel.h"
 #include "DBPool.h"
-//#include "MessageModel.h"
-//#include "GroupMessageModel.h"
+#include "MessageModel.h"
+#include "GroupMessageModel.h"
 
 
 CSessionModel* CSessionModel::m_pInstance = NULL;
@@ -221,11 +221,11 @@ void CSessionModel::fillSessionMsg(uint32_t nUserId, list<IM::BaseDefine::Contac
         if( it->session_type() == IM::BaseDefine::SESSION_TYPE_SINGLE)
         {
             nFromId = it->session_id();
-            //CMessageModel::getInstance()->getLastMsg(it->session_id(), nUserId, nMsgId, strMsgData, nMsgType); //comment by blueBling
+            CMessageModel::getInstance()->getLastMsg(it->session_id(), nUserId, nMsgId, strMsgData, nMsgType);
         }
         else
         {
-            //CGroupMessageModel::getInstance()->getLastMsg(it->session_id(), nMsgId, strMsgData, nMsgType, nFromId); //comment by blueBling
+            CGroupMessageModel::getInstance()->getLastMsg(it->session_id(), nMsgId, strMsgData, nMsgType, nFromId);
         }
         if(!IM::BaseDefine::MsgType_IsValid(nMsgType))
         {
