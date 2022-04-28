@@ -79,6 +79,7 @@ include_directories(${DB_PROXY_SERVER_DIR}/SessionModel)
 include_directories(${DB_PROXY_SERVER_DIR}/RelationModel)
 include_directories(${DB_PROXY_SERVER_DIR}/GroupMessageModel)
 include_directories(${DB_PROXY_SERVER_DIR}/MessageModel)
+include_directories(${DB_PROXY_SERVER_DIR}/Login)
 
 # ImPduBase 依赖 protobuf
 include_directories(${HOME_DIR}/3rdParty ${HOME_DIR}/3rdParty/pb ${HOME_DIR}/3rdParty/pb/protocol)
@@ -213,3 +214,7 @@ target_link_libraries(test_groupmsgmodel crypto pthread slog protobuf-lite mysql
 # MessageModel 依赖太麻烦了，直接包含所有吧
 add_executable(test_messagemodel  ${SRC_JSON} ${SRC_PB} ${BASE_SRCS} ${DB_PROXY_SERVER_SRCS} ${HOME_DIR}/Tests/test_messagemodel.cpp)
 target_link_libraries(test_messagemodel crypto pthread slog protobuf-lite mysqlclient curl hiredis)
+
+# DB_PROXY_SERVER Login 依赖太麻烦了，直接包含所有吧
+add_executable(test_login ${SRC_JSON} ${SRC_PB} ${BASE_SRCS} ${DB_PROXY_SERVER_SRCS} ${HOME_DIR}/Tests/test_login.cpp)
+target_link_libraries(test_login crypto pthread slog protobuf-lite mysqlclient curl hiredis)
