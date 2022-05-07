@@ -14,7 +14,7 @@
 #include "DBPool.h"
 #include "CachePool.h"
 #include "Common.h"
-//#include "SyncCenter.h" comment by blueBling
+#include "SyncCenter.h"
 
 
 CUserModel* CUserModel::m_pInstance = NULL;
@@ -371,8 +371,7 @@ bool CUserModel::updateUserSignInfo(uint32_t user_id, const string& sign_info)
         }
         else
         {
-            //CSyncCenter::getInstance()->updateTotalUpdate(now); //comment by blueBling
-
+            CSyncCenter::getInstance()->updateTotalUpdate(now);
         }
         db_manager->RelDBConn(db_conn);
     }

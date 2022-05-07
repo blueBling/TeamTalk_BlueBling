@@ -13,9 +13,10 @@
 #include <list>
 #include <vector>
 
-//#include "../ProxyConn.h" comment by blueBling
+//#include "../ProxyConn.h"
 //#include "../DBPool.h"
 //#include "../CachePool.h"
+#include "ProxyConn.h"
 #include "DBPool.h"
 #include "CachePool.h"
 #include "SessionModel.h"
@@ -70,7 +71,7 @@ namespace DB_PROXY {
             pPduResp->SetSeqNum(pPdu->GetSeqNum());
             pPduResp->SetServiceId(IM::BaseDefine::SID_BUDDY_LIST);
             pPduResp->SetCommandId(IM::BaseDefine::CID_BUDDY_LIST_RECENT_CONTACT_SESSION_RESPONSE);
-            //CProxyConn::AddResponsePdu(conn_uuid, pPduResp); //comment by blueBling
+            CProxyConn::AddResponsePdu(conn_uuid, pPduResp);
         }
         else
         {
@@ -119,7 +120,7 @@ namespace DB_PROXY {
                 pPduResp->SetSeqNum(pPdu->GetSeqNum());
                 pPduResp->SetServiceId(IM::BaseDefine::SID_BUDDY_LIST);
                 pPduResp->SetCommandId(IM::BaseDefine::CID_BUDDY_LIST_REMOVE_SESSION_RES);
-                //CProxyConn::AddResponsePdu(conn_uuid, pPduResp); //comment by blueBling
+                CProxyConn::AddResponsePdu(conn_uuid, pPduResp);
             }
             else
             {

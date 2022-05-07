@@ -11,8 +11,8 @@
 #include "FileAction.h"
 #include "FileModel.h"
 #include "IM.File.pb.h"
-#include "util.h" // add by blueBling
-//#include "../ProxyConn.h" comment by blueBling
+//#include "../ProxyConn.h"
+#include "ProxyConn.h"
 
 
 namespace DB_PROXY {
@@ -48,7 +48,7 @@ namespace DB_PROXY {
             pPduRes->SetSeqNum(pPdu->GetSeqNum());
             pPduRes->SetServiceId(IM::BaseDefine::SID_FILE);
             pPduRes->SetCommandId(IM::BaseDefine::CID_FILE_HAS_OFFLINE_RES);
-            //CProxyConn::AddResponsePdu(conn_uuid, pPduRes); //comment by blueBling
+            CProxyConn::AddResponsePdu(conn_uuid, pPduRes);
         }
         else
         {

@@ -9,7 +9,8 @@
  *
  ================================================================*/
 
-//#include "../ProxyConn.h" comment by blueBling
+//#include "../ProxyConn.h"
+#include "ProxyConn.h"
 #include "GroupAction.h"
 #include "GroupModel.h"
 #include "IM.Group.pb.h"
@@ -73,7 +74,7 @@ namespace DB_PROXY {
                 pPduRes->SetSeqNum(pPdu->GetSeqNum());
                 pPduRes->SetServiceId(IM::BaseDefine::SID_GROUP);
                 pPduRes->SetCommandId(IM::BaseDefine::CID_GROUP_CREATE_RESPONSE);
-                //CProxyConn::AddResponsePdu(conn_uuid, pPduRes); comment by blueBling
+                CProxyConn::AddResponsePdu(conn_uuid, pPduRes);
             }
             else
             {
@@ -119,7 +120,7 @@ namespace DB_PROXY {
             pPduRes->SetSeqNum(pPdu->GetSeqNum());
             pPduRes->SetServiceId(IM::BaseDefine::SID_GROUP);
             pPduRes->SetCommandId(IM::BaseDefine::CID_GROUP_NORMAL_LIST_RESPONSE);
-            //CProxyConn::AddResponsePdu(conn_uuid, pPduRes); comment by blueBling
+            CProxyConn::AddResponsePdu(conn_uuid, pPduRes);
         }
         else
         {
@@ -181,7 +182,7 @@ namespace DB_PROXY {
             pPduRes->SetSeqNum(pPdu->GetSeqNum());
             pPduRes->SetServiceId(IM::BaseDefine::SID_GROUP);
             pPduRes->SetCommandId(IM::BaseDefine::CID_GROUP_INFO_RESPONSE);
-            //CProxyConn::AddResponsePdu(conn_uuid, pPduRes); comment by blueBling
+            CProxyConn::AddResponsePdu(conn_uuid, pPduRes);
         }
         else
         {
@@ -238,7 +239,7 @@ namespace DB_PROXY {
                 pPduRes->SetSeqNum(pPdu->GetSeqNum());
                 pPduRes->SetServiceId(IM::BaseDefine::SID_GROUP);
                 pPduRes->SetCommandId(IM::BaseDefine::CID_GROUP_CHANGE_MEMBER_RESPONSE);
-                //CProxyConn::AddResponsePdu(conn_uuid, pPduRes); comment by blueBling
+                CProxyConn::AddResponsePdu(conn_uuid, pPduRes);
             }
             else
             {
@@ -284,7 +285,7 @@ namespace DB_PROXY {
                 pPduRes->SetSeqNum(pPdu->GetSeqNum());
                 pPduRes->SetServiceId(IM::BaseDefine::SID_GROUP);
                 pPduRes->SetCommandId(IM::BaseDefine::CID_GROUP_SHIELD_GROUP_RESPONSE);
-                //CProxyConn::AddResponsePdu(conn_uuid, pPduRes); comment by blueBling
+                CProxyConn::AddResponsePdu(conn_uuid, pPduRes);
             }
             else
             {
@@ -338,7 +339,7 @@ namespace DB_PROXY {
                 pPduRes->SetSeqNum(pPdu->GetSeqNum());
                 pPduRes->SetServiceId(IM::BaseDefine::SID_OTHER);
                 pPduRes->SetCommandId(IM::BaseDefine::CID_OTHER_GET_SHIELD_RSP);
-                //CProxyConn::AddResponsePdu(conn_uuid, pPduRes); comment by blueBling
+                CProxyConn::AddResponsePdu(conn_uuid, pPduRes);
             }
             else
             {

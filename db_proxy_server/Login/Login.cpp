@@ -10,10 +10,12 @@
  ================================================================*/
 
 #include <list>
-//#include "../ProxyConn.h" comment by blueBling
+//#include "../ProxyConn.h"
 //#include "../HttpClient.h"
+//#include "../SyncCenter.h"
+#include "ProxyConn.h"
 #include "HttpClient.h"
-//#include "../SyncCenter.h" comment by blueBling
+#include "SyncCenter.h"
 #include "Login.h"
 #include "UserModel.h"
 //#include "TokenValidator.h" comment by blueBling
@@ -23,8 +25,6 @@
 #include "Base64.h"
 #include "InterLogin.h"
 #include "ExterLogin.h"
-#include "Lock.h" // add by blueBling
-#include "util.h" // add by blueBling
 
 CInterLoginStrategy g_loginStrategy;
 
@@ -86,7 +86,7 @@ void doLogin(CImPdu* pPdu, uint32_t conn_uuid)
                     pPduResp->SetSeqNum(pPdu->GetSeqNum());
                     pPduResp->SetServiceId(IM::BaseDefine::SID_OTHER);
                     pPduResp->SetCommandId(IM::BaseDefine::CID_OTHER_VALIDATE_RSP);
-                    //CProxyConn::AddResponsePdu(conn_uuid, pPduResp); comment by blueBling
+                    CProxyConn::AddResponsePdu(conn_uuid, pPduResp);
                     return ;
                 }
             }
@@ -147,7 +147,7 @@ void doLogin(CImPdu* pPdu, uint32_t conn_uuid)
     pPduResp->SetSeqNum(pPdu->GetSeqNum());
     pPduResp->SetServiceId(IM::BaseDefine::SID_OTHER);
     pPduResp->SetCommandId(IM::BaseDefine::CID_OTHER_VALIDATE_RSP);
-    //CProxyConn::AddResponsePdu(conn_uuid, pPduResp); comment by blueBling
+    CProxyConn::AddResponsePdu(conn_uuid, pPduResp);
 }
 
 };

@@ -11,8 +11,8 @@
 #include "DepartAction.h"
 #include "DepartModel.h"
 #include "IM.Buddy.pb.h"
-#include "util.h" // add by blueBling
-//#include "../ProxyConn.h" comment by blueBling
+//#include "../ProxyConn.h"
+#include "ProxyConn.h"
 
 namespace DB_PROXY{
     void getChgedDepart(CImPdu* pPdu, uint32_t conn_uuid)
@@ -47,7 +47,7 @@ namespace DB_PROXY{
             pPduRes->SetSeqNum(pPdu->GetSeqNum());
             pPduRes->SetServiceId(IM::BaseDefine::SID_BUDDY_LIST);
             pPduRes->SetCommandId(IM::BaseDefine::CID_BUDDY_LIST_DEPARTMENT_RESPONSE);
-            //CProxyConn::AddResponsePdu(conn_uuid, pPduRes);
+            CProxyConn::AddResponsePdu(conn_uuid, pPduRes);
             
         }
         else

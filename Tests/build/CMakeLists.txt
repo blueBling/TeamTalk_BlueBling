@@ -82,6 +82,9 @@ include_directories(${DB_PROXY_SERVER_DIR}/GroupMessageModel)
 include_directories(${DB_PROXY_SERVER_DIR}/MessageModel)
 include_directories(${DB_PROXY_SERVER_DIR}/Login)
 include_directories(${DB_PROXY_SERVER_DIR}/SyncCenter)
+include_directories(${DB_PROXY_SERVER_DIR}/HandlerMap)
+include_directories(${DB_PROXY_SERVER_DIR}/ProxyTask)
+include_directories(${DB_PROXY_SERVER_DIR}/ProxyConn)
 
 # ImPduBase 依赖 protobuf
 include_directories(${HOME_DIR}/3rdParty ${HOME_DIR}/3rdParty/pb ${HOME_DIR}/3rdParty/pb/protocol)
@@ -225,3 +228,7 @@ target_link_libraries(test_login crypto pthread slog protobuf-lite mysqlclient c
 # SyncCenter
 add_executable(test_synccenter ${SRC_JSON} ${SRC_PB} ${BASE_SRCS} ${DB_PROXY_SERVER_SRCS} ${HOME_DIR}/Tests/test_synccenter.cpp)
 target_link_libraries(test_synccenter crypto pthread slog protobuf-lite mysqlclient curl hiredis)
+
+# ProxyConn
+add_executable(test_proxyconn ${SRC_JSON} ${SRC_PB} ${BASE_SRCS} ${DB_PROXY_SERVER_SRCS} ${HOME_DIR}/Tests/test_proxyconn.cpp)
+target_link_libraries(test_proxyconn crypto pthread slog protobuf-lite mysqlclient curl hiredis)

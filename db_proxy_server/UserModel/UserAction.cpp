@@ -12,11 +12,12 @@
 #include <list>
 #include <map>
 
-//#include "../ProxyConn.h" comment by blueBling
+//#include "../ProxyConn.h"
 //#include "../DBPool.h"
+//#include "../SyncCenter.h"
+#include "ProxyConn.h"
 #include "DBPool.h"
-#include "CachePool.h"
-//#include "../SyncCenter.h" comment by blueBling
+#include "SyncCenter.h"
 #include "public_define.h"
 #include "UserModel.h"
 #include "IM.Login.pb.h"
@@ -71,7 +72,7 @@ namespace DB_PROXY {
             pPduRes->SetSeqNum(pPdu->GetSeqNum());
             pPduRes->SetServiceId(IM::BaseDefine::SID_BUDDY_LIST);
             pPduRes->SetCommandId(IM::BaseDefine::CID_BUDDY_LIST_USER_INFO_RESPONSE);
-            //CProxyConn::AddResponsePdu(conn_uuid, pPduRes); //comment by blueBling
+            CProxyConn::AddResponsePdu(conn_uuid, pPduRes);
         }
         else
         {
@@ -89,9 +90,8 @@ namespace DB_PROXY {
 
             uint32_t nReqId = msg.user_id();
             uint32_t nLastTime = msg.latest_update_time();
-            //uint32_t nLastUpdate = CSyncCenter::getInstance()->getLastUpdate();
-            uint32_t nLastUpdate = time(NULL); //暂时先这样，后续添加CSyncCenter再恢复 add by bludBling
-
+            uint32_t nLastUpdate = CSyncCenter::getInstance()->getLastUpdate();
+          
             list<IM::BaseDefine::UserInfo> lsUsers;
             if( nLastUpdate > nLastTime)
             {
@@ -124,7 +124,7 @@ namespace DB_PROXY {
             pPduRes->SetSeqNum(pPdu->GetSeqNum());
             pPduRes->SetServiceId(IM::BaseDefine::SID_BUDDY_LIST);
             pPduRes->SetCommandId(IM::BaseDefine::CID_BUDDY_LIST_ALL_USER_RESPONSE);
-            //CProxyConn::AddResponsePdu(conn_uuid, pPduRes); //comment by blueBling
+            CProxyConn::AddResponsePdu(conn_uuid, pPduRes);
         }
         else
         {
@@ -165,7 +165,7 @@ namespace DB_PROXY {
             pdu_resp->SetSeqNum(pPdu->GetSeqNum());
             pdu_resp->SetServiceId(IM::BaseDefine::SID_BUDDY_LIST);
             pdu_resp->SetCommandId(IM::BaseDefine::CID_BUDDY_LIST_CHANGE_SIGN_INFO_RESPONSE);
-            //CProxyConn::AddResponsePdu(conn_uuid, pdu_resp); //comment by blueBling
+            CProxyConn::AddResponsePdu(conn_uuid, pdu_resp);
 
         }
         else
@@ -174,7 +174,6 @@ namespace DB_PROXY {
         }
     }
 
-	//void doPushShield(CImPdu* pPdu, uint32_t conn_uuid)
     void doPushShield(CImPdu* pPdu, uint32_t conn_uuid)
     {
         IM::Login::IMPushShieldReq req;
@@ -206,7 +205,7 @@ namespace DB_PROXY {
             pdu_resp->SetSeqNum(pPdu->GetSeqNum());
             pdu_resp->SetServiceId(IM::BaseDefine::SID_LOGIN);
             pdu_resp->SetCommandId(IM::BaseDefine::CID_LOGIN_RES_PUSH_SHIELD);
-            //CProxyConn::AddResponsePdu(conn_uuid, pdu_resp); //comment by blueBling
+            CProxyConn::AddResponsePdu(conn_uuid, pdu_resp);
 
         }
         else
@@ -246,7 +245,7 @@ namespace DB_PROXY {
             pdu_resp->SetSeqNum(pPdu->GetSeqNum());
             pdu_resp->SetServiceId(IM::BaseDefine::SID_LOGIN);
             pdu_resp->SetCommandId(IM::BaseDefine::CID_LOGIN_RES_QUERY_PUSH_SHIELD);
-            //CProxyConn::AddResponsePdu(conn_uuid, pdu_resp); //comment by blueBling
+            CProxyConn::AddResponsePdu(conn_uuid, pdu_resp);
         }
         else
         {

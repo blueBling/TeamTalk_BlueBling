@@ -9,9 +9,10 @@
  *
  ================================================================*/
 
-//#include "../ProxyConn.h" comment by blueBling
+//#include "../ProxyConn.h"
 //#include "../CachePool.h"
 //#include "../DBPool.h"
+#include "ProxyConn.h"
 #include "CachePool.h"
 #include "DBPool.h"
 #include "MessageContent.h"
@@ -78,7 +79,7 @@ namespace DB_PROXY {
                 pPduResp->SetSeqNum(pPdu->GetSeqNum());
                 pPduResp->SetServiceId(IM::BaseDefine::SID_MSG);
                 pPduResp->SetCommandId(IM::BaseDefine::CID_MSG_LIST_RESPONSE);
-                //CProxyConn::AddResponsePdu(conn_uuid, pPduResp); comment by blueBling
+                CProxyConn::AddResponsePdu(conn_uuid, pPduResp);
             }
             else
             {
@@ -242,7 +243,7 @@ namespace DB_PROXY {
                     pPduResp->SetSeqNum(pPdu->GetSeqNum());
                     pPduResp->SetServiceId(IM::BaseDefine::SID_MSG);
                     pPduResp->SetCommandId(IM::BaseDefine::CID_MSG_DATA);
-                    //CProxyConn::AddResponsePdu(conn_uuid, pPduResp); comment by blueBling
+                    CProxyConn::AddResponsePdu(conn_uuid, pPduResp);
                 }
                 else
                 {
@@ -307,7 +308,7 @@ namespace DB_PROXY {
                 pPduResp->SetSeqNum(pPdu->GetSeqNum());
                 pPduResp->SetServiceId(IM::BaseDefine::SID_MSG);
                 pPduResp->SetCommandId(IM::BaseDefine::CID_MSG_GET_BY_MSG_ID_RES);
-                //CProxyConn::AddResponsePdu(conn_uuid, pPduResp); comment by blueBling
+                CProxyConn::AddResponsePdu(conn_uuid, pPduResp);
             }
             else
             {
@@ -356,7 +357,7 @@ namespace DB_PROXY {
                 pPduResp->SetSeqNum(pPdu->GetSeqNum());
                 pPduResp->SetServiceId(IM::BaseDefine::SID_MSG);
                 pPduResp->SetCommandId(IM::BaseDefine::CID_MSG_GET_LATEST_MSG_ID_RSP);
-                //CProxyConn::AddResponsePdu(conn_uuid, pPduResp); comment by blueBling
+                CProxyConn::AddResponsePdu(conn_uuid, pPduResp);
 
             }
             else

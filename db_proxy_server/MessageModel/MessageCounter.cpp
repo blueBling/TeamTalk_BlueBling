@@ -9,8 +9,9 @@
  *
  ================================================================*/
 
-//#include "../ProxyConn.h" comment by blueBling
+//#include "../ProxyConn.h"
 //#include "../CachePool.h"
+#include "ProxyConn.h"
 #include "CachePool.h"
 #include "MessageCounter.h"
 #include "MessageModel.h"
@@ -62,7 +63,7 @@ namespace DB_PROXY {
             pPduResp->SetSeqNum(pPdu->GetSeqNum());
             pPduResp->SetServiceId(IM::BaseDefine::SID_MSG);
             pPduResp->SetCommandId(IM::BaseDefine::CID_MSG_UNREAD_CNT_RESPONSE);
-            //CProxyConn::AddResponsePdu(conn_uuid, pPduResp); comment by blueBling
+            CProxyConn::AddResponsePdu(conn_uuid, pPduResp);
         }
         else
         {
@@ -152,7 +153,7 @@ namespace DB_PROXY {
             pPduResp->SetSeqNum(pPdu->GetSeqNum());
             pPduResp->SetServiceId(IM::BaseDefine::SID_LOGIN);
             pPduResp->SetCommandId(IM::BaseDefine::CID_LOGIN_RES_DEVICETOKEN);
-            //CProxyConn::AddResponsePdu(conn_uuid, pPduResp); comment by blueBling
+            CProxyConn::AddResponsePdu(conn_uuid, pPduResp);
         }
         else
         {
@@ -275,7 +276,7 @@ namespace DB_PROXY {
             pPduResp->SetSeqNum(pPdu->GetSeqNum());
             pPduResp->SetServiceId(IM::BaseDefine::SID_OTHER);
             pPduResp->SetCommandId(IM::BaseDefine::CID_OTHER_GET_DEVICE_TOKEN_RSP);
-            //CProxyConn::AddResponsePdu(conn_uuid, pPduResp); comment by blueBling
+            CProxyConn::AddResponsePdu(conn_uuid, pPduResp);
         }
         else
         {
