@@ -25,8 +25,7 @@
 
 using namespace std;
 
-//extern string strAudioEnc; // comment by blueBling
-string strAudioEnc; // add by blueBling 
+extern string strAudioEnc;
 
 CGroupMessageModel* CGroupMessageModel::m_pInstance = NULL;
 
