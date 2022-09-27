@@ -19,7 +19,7 @@
  -  **base/ImConn**: tcp连接基础类库，利用netlib封装了一套比较通用的tcp连接基础类，业务类的连接可继承该类重写自己的业务逻辑
  -  **base/HttpClient**: HTTP客户端基础类库，利用curl库和jsoncpp实现了http客户端Get/Post和语音数据的上传下载
  -  **3rdParty**：第三方库，提供log4cxx、protobuf等库  
- -  **Tests**: 测试模块，为各个模块编写的测试用例
+ -  **tests_xxx**: 测试模块，为各个模块编写的测试用例
 
 ## log4cxx库编译安装指南
 - 3rdParty/package_log4cxx存放了apache-log4cxx-0.10.0.tar.gz源码包 
@@ -71,11 +71,7 @@ protobuf-2.6.1需依赖automake 1.14，解决方案参考上文ubuntu 16.04 auto
 cmake .  
 make
 
-- 主目录CMakeLists.txt会调用子模块slog和tests/build下的CMakeLists.txt文件
-在slog目录下生成libslog.so，在tests/build下生成各个测试用例
-
-- 可以直接在tests/build下执行cmake,但注意用到libslog.so时需要保证slog目录下已生成该文件
-
+- 注意用到libslog.so时需要保证slog目录下已生成该文件
 
 ## 模块说明
 ### 1、TeamTalk SLog详解

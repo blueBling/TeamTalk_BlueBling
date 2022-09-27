@@ -14,4 +14,6 @@ set(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
  
 # 加载并处理一个子文件夹下的 CMakeLists.txt 文件
 add_subdirectory(${CMAKE_SOURCE_DIR}/base/SLog)
-add_subdirectory(${CMAKE_SOURCE_DIR}/Tests/build)
+add_subdirectory(${CMAKE_SOURCE_DIR}/tests_base/build)
+add_subdirectory(${CMAKE_SOURCE_DIR}/tests_db_proxy_server/build)
+add_subdirectory(${CMAKE_SOURCE_DIR}/tests_msgserver/build)

@@ -1,0 +1,34 @@
+2022-05-09 15:19:26,781 [INFO  IM] - <CachePool.cpp>|<59>|<Init>,redisConnect failed: Connection refused
+2022-05-09 15:19:26,782 [INFO  IM] - <CachePool.cpp>|<710>|<Init>,Init cache pool failed
+2022-05-09 15:19:26,783 [INFO  IM] - <db_proxy_server.cpp>|<63>|<main>,CacheManager init failed
+2022-05-09 15:22:28,836 [INFO  IM] - <CachePool.cpp>|<597>|<Init>,cache pool: unread, list size: 2
+2022-05-09 15:22:28,837 [INFO  IM] - <CachePool.cpp>|<597>|<Init>,cache pool: group_set, list size: 2
+2022-05-09 15:22:28,839 [INFO  IM] - <CachePool.cpp>|<597>|<Init>,cache pool: token, list size: 2
+2022-05-09 15:22:28,839 [INFO  IM] - <CachePool.cpp>|<597>|<Init>,cache pool: sync, list size: 2
+2022-05-09 15:22:28,844 [INFO  IM] - <CachePool.cpp>|<597>|<Init>,cache pool: group_member, list size: 2
+2022-05-09 15:22:28,977 [INFO  IM] - <DBPool.cpp>|<239>|<Init>,mysql_real_connect failed: Access denied for user 'test'@'localhost' (using password: YES)
+2022-05-09 15:22:28,978 [INFO  IM] - <DBPool.cpp>|<469>|<Init>,init db instance failed: teamtalk_master
+2022-05-09 15:22:28,979 [INFO  IM] - <db_proxy_server.cpp>|<69>|<main>,DBManager init failed
+2022-05-09 15:23:25,404 [INFO  IM] - <CachePool.cpp>|<597>|<Init>,cache pool: unread, list size: 2
+2022-05-09 15:23:25,405 [INFO  IM] - <CachePool.cpp>|<597>|<Init>,cache pool: group_set, list size: 2
+2022-05-09 15:23:25,405 [INFO  IM] - <CachePool.cpp>|<597>|<Init>,cache pool: token, list size: 2
+2022-05-09 15:23:25,406 [INFO  IM] - <CachePool.cpp>|<597>|<Init>,cache pool: sync, list size: 2
+2022-05-09 15:23:25,406 [INFO  IM] - <CachePool.cpp>|<597>|<Init>,cache pool: group_member, list size: 2
+2022-05-09 15:23:25,422 [INFO  IM] - <DBPool.cpp>|<239>|<Init>,mysql_real_connect failed: Access denied for user 'test'@'localhost' (using password: YES)
+2022-05-09 15:23:25,422 [INFO  IM] - <DBPool.cpp>|<469>|<Init>,init db instance failed: teamtalk_master
+2022-05-09 15:23:25,423 [INFO  IM] - <db_proxy_server.cpp>|<69>|<main>,DBManager init failed
+2022-05-09 15:24:30,330 [INFO  IM] - <CachePool.cpp>|<597>|<Init>,cache pool: unread, list size: 2
+2022-05-09 15:24:30,331 [INFO  IM] - <CachePool.cpp>|<597>|<Init>,cache pool: group_set, list size: 2
+2022-05-09 15:24:30,333 [INFO  IM] - <CachePool.cpp>|<597>|<Init>,cache pool: token, list size: 2
+2022-05-09 15:24:30,334 [INFO  IM] - <CachePool.cpp>|<597>|<Init>,cache pool: sync, list size: 2
+2022-05-09 15:24:30,334 [INFO  IM] - <CachePool.cpp>|<597>|<Init>,cache pool: group_member, list size: 2
+2022-05-09 15:24:30,365 [INFO  IM] - <DBPool.cpp>|<239>|<Init>,mysql_real_connect failed: Access denied for user 'test'@'localhost' (using password: YES)
+2022-05-09 15:24:30,366 [INFO  IM] - <DBPool.cpp>|<469>|<Init>,init db instance failed: teamtalk_master
+2022-05-09 15:24:30,366 [INFO  IM] - <db_proxy_server.cpp>|<69>|<main>,DBManager init failed
+2022-05-09 15:25:09,638 [INFO  IM] - <CachePool.cpp>|<597>|<Init>,cache pool: unread, list size: 2
+2022-05-09 15:25:09,639 [INFO  IM] - <CachePool.cpp>|<597>|<Init>,cache pool: group_set, list size: 2
+2022-05-09 15:25:09,640 [INFO  IM] - <CachePool.cpp>|<597>|<Init>,cache pool: token, list size: 2
+2022-05-09 15:25:09,641 [INFO  IM] - <CachePool.cpp>|<597>|<Init>,cache pool: sync, list size: 2
+2022-05-09 15:25:09,642 [INFO  IM] - <CachePool.cpp>|<597>|<Init>,cache pool: group_member, list size: 2
+2022-05-09 15:25:09,698 [INFO  IM] - <DBPool.cpp>|<339>|<Init>,db pool: teamtalk_master, size: 2
+2022-05-09 15:25:09,723 [INFO  IM] - <DBPool.cpp>|<339>|<Init>,db pool: teamtalk_slave, size: 2

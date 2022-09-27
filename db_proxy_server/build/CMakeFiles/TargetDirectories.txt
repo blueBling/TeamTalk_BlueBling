@@ -1,0 +1,3 @@
+/mnt/hgfs/vmshare_code/TT_BlueBling/db_proxy_server/build/CMakeFiles/edit_cache.dir
+/mnt/hgfs/vmshare_code/TT_BlueBling/db_proxy_server/build/CMakeFiles/rebuild_cache.dir
+/mnt/hgfs/vmshare_code/TT_BlueBling/db_proxy_server/build/CMakeFiles/db_proxy_server.dir
